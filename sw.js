@@ -1,8 +1,8 @@
-/* Travel Planner v4 - Service Worker
+/* Travel Planner v5 - Service Worker
    - 自オリジンの静的ファイルのみキャッシュ
    - GAS(script.google.com)へのリクエストは一切触らない（CORS/リダイレクト保護）
 */
-const CACHE_NAME = 'tp-v4-2026-07-26';
+const CACHE_NAME = 'tp-v5-2026-07-26';
 const ASSETS = ['./', './index.html', './manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
@@ -24,13 +24,9 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-
-  // 別オリジン（GAS等）は素通し
   let url;
   try { url = new URL(req.url); } catch (e) { return; }
   if (url.origin !== self.location.origin) return;
-
-  // GET以外は素通し
   if (req.method !== 'GET') return;
 
   event.respondWith(

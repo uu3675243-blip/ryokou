@@ -8,12 +8,25 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧳</text></svg>">
 <style>
-:root{--bg:#f5f2ec;--card:#fff;--ink:#1f2937;--ink2:#4b5563;--mut:#94a3b8;--line:#e6e1d7;--accent:#2563eb;--accent2:#1d4ed8;--danger:#ef4444;--ok:#059669;--shadow:0 4px 14px rgba(31,41,55,.06),0 1px 3px rgba(31,41,55,.05);--shadow-lg:0 12px 30px rgba(31,41,55,.12)}
+:root{
+  --bg:#f5f2ec;--card:#fff;--ink:#1f2937;--ink2:#4b5563;--mut:#94a3b8;--line:#e6e1d7;
+  --accent:#2563eb;--accent2:#1d4ed8;--danger:#ef4444;--ok:#059669;
+  --shadow:0 4px 14px rgba(31,41,55,.06),0 1px 3px rgba(31,41,55,.05);
+  --shadow-lg:0 12px 30px rgba(31,41,55,.12);
+  /* フッター高さ＋余白（最下部カードが隠れないように使う） */
+  --footH:76px;
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:"Hiragino Sans","Yu Gothic UI","Noto Sans JP",system-ui,-apple-system,sans-serif;color:var(--ink);background:linear-gradient(180deg,#faf8f3 0%,#f2ede4 100%);min-height:100vh;padding-bottom:120px}
+body{
+  font-family:"Hiragino Sans","Yu Gothic UI","Noto Sans JP",system-ui,-apple-system,sans-serif;
+  color:var(--ink);background:linear-gradient(180deg,#faf8f3 0%,#f2ede4 100%);min-height:100vh;
+  /* ★修正1: 最下部カードがフッターに隠れないよう十分な余白 */
+  padding-bottom:calc(var(--footH) + 88px + env(safe-area-inset-bottom));
+}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
+
 .appHeader{position:sticky;top:0;z-index:50;background:rgba(250,248,243,.94);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid rgba(230,225,215,.6)}
 .headInner{max-width:640px;margin:0 auto;padding:12px 14px;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:6px}
 .iconBtn{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;background:transparent;transition:background .15s}
@@ -44,61 +57,97 @@ button{cursor:pointer;border:none;background:none}
 .sumPill{flex:1;min-width:0;padding:8px 10px;border-radius:12px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:2px;overflow:hidden}
 .sumPill .k{font-size:10px;color:var(--mut);font-weight:700;letter-spacing:.04em}
 .sumPill .v{font-size:13px;font-weight:900;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
 .shell{max-width:640px;margin:0 auto;padding:8px 12px}
 .timeline{display:flex;flex-direction:column;gap:10px;position:relative}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 12px 12px 8px;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;position:relative}
+
+/* ---------- カード ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 40px 12px 8px;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;position:relative}
 .card:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
 .card.dragging{opacity:.5;transform:scale(.98)}
 .card.dragOver{outline:2px dashed var(--accent);outline-offset:2px}
-.cardGrid{display:grid;grid-template-columns:18px 40px 78px 1fr;align-items:start;gap:8px}
+.cardGrid{display:grid;grid-template-columns:18px 40px 80px 1fr;align-items:start;gap:8px}
 .dragHandle{align-self:center;color:var(--mut);cursor:grab;user-select:none;font-size:14px;line-height:1;padding:8px 0;touch-action:none;text-align:center}
 .dragHandle:active{cursor:grabbing}
 .cardIcon{align-self:center;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .card.dest .cardIcon{background:#fff3ef;color:#c2410c}
 .card.move .cardIcon{background:#e8f0ff;color:#2563eb}
 .timeCol{align-self:start;display:flex;flex-direction:column;gap:4px;min-width:0}
-.timeInput{width:100%;padding:8px 6px;border-radius:10px;border:1px solid var(--line);background:#fbfbf8;color:var(--ink);font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;text-align:center;letter-spacing:.02em;transition:.15s;min-width:0}
+.timeInput{width:100%;padding:8px 4px;border-radius:10px;border:1px solid var(--line);background:#fbfbf8;color:var(--ink);font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;text-align:center;transition:.15s;min-width:0}
 .timeInput:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.15)}
-.durBadge{font-size:10px;color:var(--mut);font-weight:700;text-align:center}
+.durBadge{font-size:10px;color:var(--mut);font-weight:700;text-align:center;white-space:nowrap}
 .body{min-width:0;display:flex;flex-direction:column;gap:6px;overflow:hidden}
-.destTop{display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:11px;border:1px solid var(--line);background:#fbfbf8;transition:.15s;min-width:0}
+
+/* ---------- 目的地 ---------- */
+/* ★修正2: 目的地名は textarea で自動折り返し（見切れない） */
+.destTop{display:flex;align-items:flex-start;gap:6px;padding:8px 10px;border-radius:11px;border:1px solid var(--line);background:#fbfbf8;transition:.15s;min-width:0}
 .destTop:focus-within{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
-.destLbl{font-size:11px;font-weight:800;color:var(--ink2);flex:0 0 auto;white-space:nowrap}
-.destName{flex:1;min-width:0;border:none;background:transparent;font-size:14px;font-weight:700;padding:2px 0;width:100%}
+.destLbl{font-size:12px;flex:0 0 auto;line-height:1.6;padding-top:1px}
+.destName{
+  flex:1;min-width:0;width:100%;border:none;background:transparent;
+  font-size:14px;font-weight:700;padding:1px 0;
+  font-family:inherit;resize:none;line-height:1.55;
+  overflow:hidden;overflow-wrap:anywhere;word-break:break-word;white-space:pre-wrap;
+}
 .destName:focus{outline:none}
-.destNote{border:none;background:transparent;padding:2px 4px;font-size:12px;color:var(--ink2);width:100%;resize:none;line-height:1.5;font-family:inherit}
-.destNote:focus{outline:none}
-.mapPin{font-size:16px;color:var(--danger);flex:0 0 auto;cursor:pointer;padding:2px 4px}
+.mapPin{font-size:16px;flex:0 0 auto;cursor:pointer;padding:1px 2px;line-height:1.6}
+
+/* ---------- メモ（★修正3: 常時表示のメモ欄） ---------- */
+.memoWrap{display:flex;align-items:flex-start;gap:6px;padding:7px 10px;border-radius:11px;border:1px dashed var(--line);background:#fdfcf8;transition:.15s;min-width:0}
+.memoWrap:focus-within{border-style:solid;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.memoLbl{font-size:11px;flex:0 0 auto;line-height:1.6;padding-top:1px;color:var(--mut)}
+.memoInput{
+  flex:1;min-width:0;width:100%;border:none;background:transparent;
+  font-size:12px;color:var(--ink2);padding:1px 0;
+  font-family:inherit;resize:none;line-height:1.6;
+  overflow:hidden;overflow-wrap:anywhere;word-break:break-word;white-space:pre-wrap;
+}
+.memoInput:focus{outline:none}
+.memoInput::placeholder{color:#b8c0cc}
+
+/* ---------- 移動 ---------- */
 .moveHead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .moveLbl{font-size:13px;font-weight:900;color:var(--ink);white-space:nowrap;flex:0 0 auto}
-.moveSelect{flex:1;min-width:120px;padding:8px 10px;padding-right:30px;border-radius:11px;border:1px solid var(--line);background:#fbfbf8;font-size:13px;font-weight:700;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 10px center;transition:.15s}
+.moveSelect{flex:1 1 130px;min-width:120px;padding:8px 10px;padding-right:30px;border-radius:11px;border:1px solid var(--line);background:#fbfbf8;font-size:13px;font-weight:700;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 10px center;transition:.15s}
 .moveSelect:focus{outline:none;border-color:var(--accent);background-color:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.15)}
-.moveMeta{display:flex;gap:6px}
-.metaGrp{flex:1;min-width:0;display:flex;align-items:center;gap:4px;padding:7px 10px;border-radius:11px;border:1px solid var(--line);background:#fbfbf8;transition:.15s;overflow:hidden}
+/* ★修正4: 3桁でも見切れないよう最小幅を確保し、足りなければ折り返す */
+.moveMeta{display:flex;gap:6px;flex-wrap:wrap}
+.metaGrp{flex:1 1 130px;min-width:118px;display:flex;align-items:center;gap:4px;padding:7px 10px;border-radius:11px;border:1px solid var(--line);background:#fbfbf8;transition:.15s}
 .metaGrp:focus-within{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
 .metaLbl{font-size:10px;color:var(--mut);font-weight:800;white-space:nowrap;flex:0 0 auto}
-.metaInput{flex:1;min-width:0;width:100%;border:none;background:transparent;font-size:13px;font-weight:700;padding:2px 0;font-variant-numeric:tabular-nums}
+.metaInput{
+  flex:1 1 auto;min-width:44px;width:100%;border:none;background:transparent;
+  font-size:13px;font-weight:700;padding:2px 0;font-variant-numeric:tabular-nums;
+  text-align:right;
+  -moz-appearance:textfield;appearance:textfield;
+}
+.metaInput::-webkit-outer-spin-button,.metaInput::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .metaInput:focus{outline:none}
 .metaUnit{font-size:10px;color:var(--mut);font-weight:700;flex:0 0 auto}
-.cardActions{position:absolute;top:6px;right:6px;display:flex;gap:2px;opacity:.6;transition:opacity .15s;z-index:2}
-.card:hover .cardActions,.card:focus-within .cardActions{opacity:1}
-.actBtn{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--mut);background:rgba(255,255,255,.85);transition:.15s;backdrop-filter:blur(4px)}
-.actBtn:hover{background:rgba(239,68,68,.15);color:var(--danger)}
-.footer{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(250,248,243,0),rgba(250,248,243,.98) 30%);pointer-events:none}
+
+/* 削除ボタン（カード右側の余白に配置＝重ならない） */
+.cardActions{position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:4px;z-index:2}
+.actBtn{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--mut);background:#f8f5ee;border:1px solid var(--line);transition:.15s}
+.actBtn:hover{background:rgba(239,68,68,.12);color:var(--danger);border-color:rgba(239,68,68,.3)}
+
+/* ---------- フッター ---------- */
+.footer{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(250,248,243,0) 0%,rgba(250,248,243,.96) 26%,rgba(244,240,232,1) 100%);pointer-events:none}
 .footInner{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:8px;pointer-events:auto}
 .addBtn{width:48px;height:48px;border-radius:50%;background:var(--ink);color:#fff;font-size:24px;font-weight:300;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-lg);flex:0 0 auto;transition:transform .12s,background .15s}
 .addBtn:hover{background:var(--accent2);transform:translateY(-2px)}
 .addBtn:active{transform:scale(.94)}
-.searchWrap{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:11px 14px;border-radius:24px;background:#e9e5dc;border:1px solid rgba(0,0,0,.04);box-shadow:var(--shadow)}
+.searchWrap{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:11px 14px;border-radius:24px;background:#e9e5dc;border:1px solid rgba(0,0,0,.05);box-shadow:var(--shadow)}
 .searchWrap svg{flex:0 0 auto;color:var(--mut)}
 .searchInput{flex:1;min-width:0;border:none;background:transparent;font-size:13px;color:var(--ink)}
 .searchInput::placeholder{color:var(--mut)}
 .searchInput:focus{outline:none}
+
 .empty{padding:36px 16px;text-align:center;color:var(--mut);border:2px dashed var(--line);border-radius:18px;background:#fdfcf8}
 .empty .emoji{font-size:40px;margin-bottom:8px}
 .empty .t{font-size:14px;font-weight:800;color:var(--ink2);margin-bottom:4px}
 .empty .s{font-size:11px;line-height:1.6;word-break:break-word}
-.suggest{position:fixed;left:12px;right:12px;bottom:74px;z-index:59;max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);max-height:240px;overflow-y:auto;display:none}
+
+.suggest{position:fixed;left:12px;right:12px;bottom:calc(var(--footH) + env(safe-area-inset-bottom));z-index:59;max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);max-height:240px;overflow-y:auto;display:none}
 .suggest.show{display:block}
 .sugItem{padding:10px 14px;display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line);cursor:pointer;transition:.12s}
 .sugItem:last-child{border-bottom:none}
@@ -106,9 +155,11 @@ button{cursor:pointer;border:none;background:none}
 .sugItem .emoji{font-size:18px}
 .sugItem .nm{font-size:13px;font-weight:700}
 .sugItem .cat{font-size:10px;color:var(--mut);margin-top:2px}
-.toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(20px);padding:10px 16px;border-radius:12px;background:#1f2937;color:#fff;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:.24s;z-index:200;box-shadow:var(--shadow-lg);max-width:calc(100% - 24px);text-align:center;line-height:1.5;word-break:break-word}
+
+.toast{position:fixed;left:50%;bottom:calc(var(--footH) + 24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);padding:10px 16px;border-radius:12px;background:#1f2937;color:#fff;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:.24s;z-index:200;box-shadow:var(--shadow-lg);max-width:calc(100% - 24px);text-align:center;line-height:1.5;word-break:break-word}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.modalWrap{position:fixed;inset:0;display:none;align-items:flex-end;justify-content:center;z-index:300;padding:0}
+
+.modalWrap{position:fixed;inset:0;display:none;align-items:flex-end;justify-content:center;z-index:300}
 .modalWrap.show{display:flex}
 .modalWrap .bd{position:absolute;inset:0;background:rgba(0,0,0,.42)}
 .sheet{position:relative;background:#fff;width:100%;max-width:640px;border-radius:20px 20px 0 0;box-shadow:0 -12px 40px rgba(0,0,0,.25);padding:16px 14px calc(18px + env(safe-area-inset-bottom));max-height:82vh;overflow-y:auto;animation:slideUp .22s ease-out}
@@ -135,11 +186,14 @@ button{cursor:pointer;border:none;background:none}
 .loadingBox{padding:30px;text-align:center;color:var(--mut);font-size:13px}
 .loadingBox .spin{display:inline-block;width:20px;height:20px;border:3px solid var(--line);border-top-color:var(--ink);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- タブレット以上 ---------- */
 @media(min-width:520px){
+  :root{--footH:80px}
   .cardGrid{grid-template-columns:22px 44px 96px 1fr;gap:10px}
-  .card{padding:14px 14px 14px 10px}
+  .card{padding:14px 44px 14px 10px}
   .cardIcon{width:44px;height:44px;font-size:22px;border-radius:14px}
-  .timeInput{font-size:15px;padding:9px 8px}
+  .timeInput{font-size:15px;padding:9px 6px}
   .appTitle{font-size:20px}
   .headInner{grid-template-columns:44px 1fr 44px;padding:14px 16px}
   .iconBtn{width:44px;height:44px;font-size:20px;border-radius:14px}
@@ -147,25 +201,35 @@ button{cursor:pointer;border:none;background:none}
   .netInd{font-size:11px;padding:4px 10px}
   .dayChip{font-size:13px;padding:8px 14px;border-radius:12px}
   .sumPill .v{font-size:15px}
-  .destLbl{font-size:12px}.destName{font-size:15px}.destNote{font-size:13px}
+  .destLbl{font-size:13px}.destName{font-size:15px}
+  .memoLbl{font-size:12px}.memoInput{font-size:13px}
   .moveLbl{font-size:15px}.moveSelect{font-size:14px}
-  .metaLbl{font-size:11px}.metaInput{font-size:14px}
+  .metaLbl{font-size:11px}.metaInput{font-size:14px;min-width:52px}
   .addBtn{width:52px;height:52px;font-size:26px}
   .searchWrap{padding:12px 16px;border-radius:26px}
   .searchInput{font-size:14px}
 }
-@media(max-width:359px){
-  .cardGrid{grid-template-columns:16px 36px 66px 1fr;gap:6px}
-  .card{padding:10px 10px 10px 6px;border-radius:16px}
+
+/* ---------- 小型スマホ ---------- */
+@media(max-width:400px){
+  .cardGrid{grid-template-columns:16px 36px 72px 1fr;gap:6px}
+  .card{padding:10px 36px 10px 6px;border-radius:16px}
   .cardIcon{width:36px;height:36px;font-size:18px;border-radius:10px}
-  .timeInput{font-size:12px;padding:7px 4px}
+  .timeInput{font-size:13px;padding:7px 2px}
   .durBadge{font-size:9px}
-  .destTop{padding:7px 8px;gap:4px}
-  .destLbl{font-size:10px}.destName{font-size:13px}.destNote{font-size:11px}
+  .destTop{padding:7px 8px;gap:5px}
+  .destLbl{font-size:11px}
+  .destName{font-size:13px}
+  .memoWrap{padding:6px 8px;gap:5px}
+  .memoLbl{font-size:10px}
+  .memoInput{font-size:11px}
   .moveLbl{font-size:12px}
-  .moveSelect{font-size:12px;padding:7px 8px;min-width:100px}
-  .metaGrp{padding:6px 8px;gap:3px}
-  .metaLbl{font-size:9px}.metaInput{font-size:12px}
+  .moveSelect{font-size:12px;padding:7px 8px;flex:1 1 100%;min-width:0}
+  /* 3桁でも確実に見えるよう、狭い画面では所要/費用を縦に並べる */
+  .moveMeta{flex-direction:column;gap:5px}
+  .metaGrp{flex:1 1 auto;min-width:0;padding:6px 9px;gap:6px}
+  .metaLbl{font-size:10px}
+  .metaInput{font-size:13px;min-width:0;text-align:right}
   .appTitle{font-size:16px}
   .headInner{padding:10px 10px;grid-template-columns:36px 1fr 36px}
   .iconBtn{width:36px;height:36px;font-size:16px}
@@ -247,10 +311,9 @@ button{cursor:pointer;border:none;background:none}
 
 /* ============================================================
    GAS Webアプリ URL（既定値）
-   ※再デプロイでURLが変わったら 🩺 画面から更新できます
    ============================================================ */
 var DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbyoCoNQrSlS5HN3pM84RpAY_7Thp-6xLTwrzd6ZNrMRG9_CkuyYawpR6EdUGXdrjaU3ag/exec';
-var LS_GAS = 'tp4_gasurl';
+var LS_GAS = 'tp5_gasurl';
 
 function getGasUrl(){
   try{
@@ -263,15 +326,9 @@ function getGasUrl(){
 }
 var GAS_URL = getGasUrl();
 
-/* ============================================================
-   定数
-   ============================================================ */
-var MOVES=[{v:'walk',name:'徒歩',emoji:'🚶'},{v:'train',name:'電車',emoji:'🚆'},{v:'subway',name:'地下鉄',emoji:'🚇'},{v:'bus',name:'バス',emoji:'🚌'},{v:'taxi',name:'タクシー',emoji:'🚕'},{v:'bike',name:'自転車',emoji:'🚲'}];
-var SUGGESTIONS=[{n:'浅草寺',cat:'寺社',e:'⛩️'},{n:'東京スカイツリー',cat:'展望',e:'🗼'},{n:'上野公園',cat:'公園',e:'🌳'},{n:'秋葉原',cat:'ショッピング',e:'🎮'},{n:'渋谷スクランブル交差点',cat:'名所',e:'🚦'},{n:'明治神宮',cat:'寺社',e:'⛩️'},{n:'東京駅',cat:'交通',e:'🚉'},{n:'皇居',cat:'名所',e:'🏯'},{n:'表参道ヒルズ',cat:'ショッピング',e:'🛍️'},{n:'豊洲市場',cat:'グルメ',e:'🐟'},{n:'お台場',cat:'観光',e:'🌉'},{n:'新宿御苑',cat:'公園',e:'🌸'},{n:'原宿',cat:'ショッピング',e:'🎀'},{n:'銀座',cat:'ショッピング',e:'💎'},{n:'六本木ヒルズ',cat:'展望',e:'🌃'}];
+var MOVES=[{v:'walk',name:'徒歩',emoji:'🚶'},{v:'train',name:'電車',emoji:'🚆'},{v:'subway',name:'地下鉄',emoji:'🚇'},{v:'bus',name:'バス',emoji:'🚌'},{v:'taxi',name:'タクシー',emoji:'🚕'},{v:'bike',name:'自転車',emoji:'🚲'},{v:'car',name:'車',emoji:'🚗'},{v:'ferry',name:'船',emoji:'⛴️'},{v:'plane',name:'飛行機',emoji:'✈️'}];
+var SUGGESTIONS=[{n:'浅草寺',cat:'寺社',e:'⛩️'},{n:'東京スカイツリー',cat:'展望',e:'🗼'},{n:'上野公園',cat:'公園',e:'🌳'},{n:'秋葉原',cat:'ショッピング',e:'🎮'},{n:'渋谷スクランブル交差点',cat:'名所',e:'🚦'},{n:'明治神宮',cat:'寺社',e:'⛩️'},{n:'東京駅',cat:'交通',e:'🚉'},{n:'皇居',cat:'名所',e:'🏯'},{n:'表参道ヒルズ',cat:'ショッピング',e:'🛍️'},{n:'豊洲市場',cat:'グルメ',e:'🐟'},{n:'お台場',cat:'観光',e:'🌉'},{n:'新宿御苑',cat:'公園',e:'🌸'},{n:'原宿',cat:'ショッピング',e:'🎀'},{n:'銀座',cat:'ショッピング',e:'💎'},{n:'六本木ヒルズ',cat:'展望',e:'🌃'},{n:'今井浜海岸駅',cat:'交通',e:'🚉'},{n:'伊豆今井浜東急ホテル',cat:'宿泊',e:'🏨'},{n:'河津七滝',cat:'自然',e:'💧'},{n:'伊豆シャボテン動物公園',cat:'動物園',e:'🌵'},{n:'城ヶ崎海岸',cat:'自然',e:'🌊'},{n:'チェックイン',cat:'宿泊',e:'🏨'},{n:'昼食',cat:'食事',e:'🍽️'},{n:'夕食',cat:'食事',e:'🍽️'},{n:'朝食',cat:'食事',e:'☕'},{n:'休憩',cat:'その他',e:'☕'},{n:'買い物',cat:'ショッピング',e:'🛍️'},{n:'温泉',cat:'温泉',e:'♨️'},{n:'就寝',cat:'その他',e:'😴'}];
 
-/* ============================================================
-   状態（クラウドが正。ローカル保存はGAS URLのみ）
-   ============================================================ */
 var state=null, activeId='', plans=[], dragId=null, saveT=null, netStatus='online', lastError='';
 
 var $=function(id){return document.getElementById(id);};
@@ -282,9 +339,7 @@ function toMin(t){var m=/^(\d{2}):(\d{2})$/.exec(t||'');if(!m)return 0;return pa
 function activeDay(){if(!state)return null;for(var i=0;i<state.days.length;i++){if(state.days[i].id===state.activeDayId)return state.days[i];}return state.days[0];}
 
 /* ============================================================
-   通信レイヤ（CORS完全回避）
-   読み取り: fetch → 失敗時 JSONP
-   書き込み: fetch → 失敗時 iframeフォームPOST（送りっぱなし）→ 一覧で確認
+   通信（CORS回避: fetch → JSONP → フォームPOST）
    ============================================================ */
 function b64url(str){
   var bytes = new TextEncoder().encode(str);
@@ -292,7 +347,6 @@ function b64url(str){
   for(var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
   return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 }
-
 var jsonpSeq=0;
 function jsonp(params, timeoutMs){
   timeoutMs = timeoutMs || 20000;
@@ -312,13 +366,11 @@ function jsonp(params, timeoutMs){
     };
     timer = setTimeout(function(){ if(!done){ cleanup(); reject(new Error('タイムアウト')); } }, timeoutMs);
     var obj = Object.assign({}, params, {callback:cb, _:Date.now()});
-    var q = new URLSearchParams(obj).toString();
-    s.src = GAS_URL + '?' + q;
+    s.src = GAS_URL + '?' + new URLSearchParams(obj).toString();
     s.onerror = function(){ if(!done){ cleanup(); reject(new Error('接続失敗（URLかデプロイ設定を確認）')); } };
     document.head.appendChild(s);
   });
 }
-
 function fetchGet(params){
   var q = new URLSearchParams(Object.assign({}, params, {_:Date.now()})).toString();
   return fetch(GAS_URL+'?'+q, {redirect:'follow'}).then(function(r){return r.text();}).then(function(t){
@@ -327,20 +379,14 @@ function fetchGet(params){
     return j;
   });
 }
-
 function fetchPost(body){
-  return fetch(GAS_URL, {
-    method:'POST',
-    headers:{'Content-Type':'text/plain;charset=utf-8'},
-    body:JSON.stringify(body),
-    redirect:'follow'
-  }).then(function(r){return r.text();}).then(function(t){
+  return fetch(GAS_URL, {method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body),redirect:'follow'})
+  .then(function(r){return r.text();}).then(function(t){
     var j; try{ j=JSON.parse(t); }catch(e){ throw new Error('応答不正'); }
     if(!j.ok) throw new Error(j.error||'サーバーエラー');
     return j;
   });
 }
-
 function formPost(body){
   return new Promise(function(resolve){
     var name='tpifr_'+Date.now().toString(36);
@@ -359,20 +405,13 @@ function formPost(body){
     }, 2600);
   });
 }
-
-/* 読み取り */
 function apiRead(params){
   return fetchGet(params).catch(function(e1){
-    return jsonp(params).catch(function(e2){
-      throw new Error(e2.message||e1.message||'通信失敗');
-    });
+    return jsonp(params).catch(function(e2){ throw new Error(e2.message||e1.message||'通信失敗'); });
   });
 }
-
-/* 書き込み */
 function apiWrite(body){
-  return fetchPost(body).catch(function(e1){
-    // JSONP経由（payloadが短ければGETでも通る）
+  return fetchPost(body).catch(function(){
     var payload = b64url(JSON.stringify(body));
     if(payload.length < 1600){
       return jsonp({payload:payload}).catch(function(){ return formPost(body); });
@@ -381,9 +420,6 @@ function apiWrite(body){
   });
 }
 
-/* ============================================================
-   ネット状態
-   ============================================================ */
 function updateNet(){
   var el=$('netInd');
   if(!GAS_URL || GAS_URL.indexOf('script.google.com')<0){ el.className='netInd error'; el.textContent='URL未設定'; return; }
@@ -393,9 +429,6 @@ function updateNet(){
   el.className='netInd online'; el.textContent='● オンライン'; netStatus='online';
 }
 
-/* ============================================================
-   クラウド操作
-   ============================================================ */
 function scheduleSave(){ clearTimeout(saveT); saveT=setTimeout(function(){ doSave(false); }, 1200); }
 
 function doSave(manual){
@@ -406,8 +439,7 @@ function doSave(manual){
     return Promise.resolve();
   }
   netStatus='saving'; updateNet();
-  var body = {action:'save', planId:activeId, title:state.title, data:state};
-  return apiWrite(body).then(function(res){
+  return apiWrite({action:'save', planId:activeId, title:state.title, data:state}).then(function(res){
     if(res && res.planId){ activeId = res.planId; }
     var found=null;
     for(var i=0;i<plans.length;i++){ if(plans[i].planId===activeId){ found=plans[i]; break; } }
@@ -416,16 +448,11 @@ function doSave(manual){
     else{ plans.unshift({planId:activeId, title:state.title, updatedAt:stamp, createdAt:stamp}); }
     netStatus='online'; lastError=''; updateNet();
     if(manual) toast(res && res.viaForm ? '☁ 保存を送信しました' : '☁ 保存しました');
-    if(res && res.viaForm){ return refreshPlans().then(function(){ syncActiveId(); }); }
+    if(res && res.viaForm){ return refreshPlans(); }
   }).catch(function(e){
     netStatus='error'; lastError=String(e.message||e); updateNet();
     toast('保存失敗: '+lastError);
   });
-}
-
-function syncActiveId(){
-  if(activeId) return;
-  if(plans.length){ activeId = plans[0].planId; }
 }
 
 function refreshPlans(){
@@ -499,9 +526,6 @@ function deletePlan(planId,titleName){
   }).catch(function(e){ toast('削除失敗: '+(e.message||e)); });
 }
 
-/* ============================================================
-   初期データ
-   ============================================================ */
 function initialPlanData(title){
   var dayId=uid();
   return { title: title||'新しい旅行', activeDayId:dayId,
@@ -511,11 +535,11 @@ function sampleData(){
   var dayId=uid();
   return { title:'東京旅行計画', activeDayId:dayId, days:[{id:dayId,name:'1日目',date:new Date().toISOString().slice(0,10),items:[
     {id:uid(),type:'dest',time:'10:00',name:'浅草寺',note:'雷門と仲見世通りを散策',emoji:'⛩️'},
-    {id:uid(),type:'move',time:'11:30',move:'subway',duration:25,cost:200},
+    {id:uid(),type:'move',time:'11:30',move:'subway',duration:25,cost:200,note:''},
     {id:uid(),type:'dest',time:'12:00',name:'上野公園',note:'ランチと博物館',emoji:'🌳'},
-    {id:uid(),type:'move',time:'14:30',move:'walk',duration:15,cost:0},
+    {id:uid(),type:'move',time:'14:30',move:'walk',duration:15,cost:0,note:''},
     {id:uid(),type:'dest',time:'14:45',name:'アメ横',note:'食べ歩き',emoji:'🍡'},
-    {id:uid(),type:'move',time:'16:00',move:'train',duration:20,cost:180},
+    {id:uid(),type:'move',time:'16:00',move:'train',duration:20,cost:180,note:''},
     {id:uid(),type:'dest',time:'16:30',name:'東京スカイツリー',note:'夜景を見る',emoji:'🗼'}
   ]}]};
 }
@@ -569,15 +593,30 @@ function renderTimeline(){
   day.items.forEach(function(it){ wrap.appendChild(renderItem(it)); });
 }
 
+/* textarea 自動リサイズ */
+function autoGrow(t){
+  t.style.height='auto';
+  t.style.height=Math.max(t.scrollHeight, 20)+'px';
+}
+function bindGrow(t){
+  requestAnimationFrame(function(){ autoGrow(t); });
+  t.addEventListener('input', function(){ autoGrow(t); });
+  t.addEventListener('focus', function(){ autoGrow(t); });
+}
+
 function renderItem(it){
   var card=document.createElement('article');
   card.className='card '+(it.type==='dest'?'dest':'move');
   card.draggable=true; card.dataset.id=it.id;
+
   var grid=document.createElement('div'); grid.className='cardGrid';
-  var dh=document.createElement('div'); dh.className='dragHandle'; dh.innerHTML='⋮⋮';
+
+  var dh=document.createElement('div'); dh.className='dragHandle'; dh.innerHTML='⋮⋮'; dh.title='ドラッグで並び替え';
+
   var ic=document.createElement('div'); ic.className='cardIcon';
   var mv=null; for(var i=0;i<MOVES.length;i++){ if(MOVES[i].v===it.move){ mv=MOVES[i]; break; } }
   ic.textContent = it.type==='dest' ? (it.emoji||'📍') : (mv?mv.emoji:'🚶');
+
   var tc=document.createElement('div'); tc.className='timeCol';
   var tIn=document.createElement('input'); tIn.className='timeInput'; tIn.type='time'; tIn.value=it.time||''; tIn.step=60;
   tIn.addEventListener('change',function(){
@@ -586,20 +625,28 @@ function renderItem(it){
     it.time=v; renderSummary(); scheduleSave();
   });
   tc.appendChild(tIn);
-  if(it.type==='move'&&it.duration){ var b=document.createElement('div'); b.className='durBadge'; b.textContent='+'+it.duration+'分'; tc.appendChild(b); }
+  if(it.type==='move' && it.duration){
+    var b=document.createElement('div'); b.className='durBadge'; b.textContent='+'+it.duration+'分'; tc.appendChild(b);
+  }
+
   var body=document.createElement('div'); body.className='body';
   if(it.type==='dest') buildDestBody(body,it); else buildMoveBody(body,it);
+
   grid.appendChild(dh); grid.appendChild(ic); grid.appendChild(tc); grid.appendChild(body);
   card.appendChild(grid);
+
   var actions=document.createElement('div'); actions.className='cardActions';
   var del=document.createElement('button'); del.className='actBtn'; del.innerHTML='🗑'; del.title='削除';
   del.onclick=function(e){ e.stopPropagation(); removeItem(it.id); };
-  actions.appendChild(del); card.appendChild(actions);
+  actions.appendChild(del);
+  card.appendChild(actions);
+
   card.addEventListener('dragstart',function(e){ dragId=it.id; card.classList.add('dragging'); e.dataTransfer.effectAllowed='move'; try{ e.dataTransfer.setData('text/plain',it.id); }catch(_){} });
   card.addEventListener('dragend',function(){ card.classList.remove('dragging'); Array.prototype.forEach.call(document.querySelectorAll('.card.dragOver'),function(c){c.classList.remove('dragOver');}); dragId=null; });
   card.addEventListener('dragover',function(e){ e.preventDefault(); if(dragId&&dragId!==it.id){ card.classList.add('dragOver'); e.dataTransfer.dropEffect='move'; } });
   card.addEventListener('dragleave',function(){ card.classList.remove('dragOver'); });
   card.addEventListener('drop',function(e){ e.preventDefault(); card.classList.remove('dragOver'); if(dragId&&dragId!==it.id) reorderItem(dragId,it.id); });
+
   var startY=null;
   dh.addEventListener('touchstart',function(e){ startY=e.touches[0].clientY; },{passive:true});
   dh.addEventListener('touchmove',function(e){
@@ -608,45 +655,94 @@ function renderItem(it){
     if(Math.abs(dy)>40){ moveItem(it.id, dy>0?1:-1); startY=e.touches[0].clientY; }
   },{passive:true});
   dh.addEventListener('touchend',function(){ startY=null; });
+
   return card;
 }
 
 function buildDestBody(body,it){
+  /* 目的地名: textarea で折り返し（★修正2） */
   var top=document.createElement('div'); top.className='destTop';
   var lbl=document.createElement('span'); lbl.className='destLbl'; lbl.textContent='📍';
-  var nm=document.createElement('input'); nm.className='destName'; nm.value=it.name||''; nm.placeholder='場所を入力';
+  var nm=document.createElement('textarea');
+  nm.className='destName'; nm.rows=1; nm.placeholder='場所・予定を入力'; nm.value=it.name||'';
+  nm.setAttribute('aria-label','目的地');
   nm.addEventListener('input',function(){ it.name=nm.value; scheduleSave(); });
+  nm.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); nm.blur(); } });
+  bindGrow(nm);
   var pin=document.createElement('span'); pin.className='mapPin'; pin.textContent='🗺'; pin.title='地図で開く';
-  pin.onclick=function(e){ e.stopPropagation(); if(!it.name){ toast('場所名を入力してください'); return; } window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(it.name),'_blank'); };
-  top.appendChild(lbl); top.appendChild(nm); top.appendChild(pin); body.appendChild(top);
-  var note=document.createElement('textarea'); note.className='destNote'; note.rows=1; note.placeholder='メモ（開館時間、予約情報など）'; note.value=it.note||'';
-  autoGrow(note);
-  note.addEventListener('input',function(){ it.note=note.value; autoGrow(note); scheduleSave(); });
-  body.appendChild(note);
+  pin.onclick=function(e){
+    e.stopPropagation();
+    if(!it.name){ toast('場所名を入力してください'); return; }
+    window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(it.name),'_blank');
+  };
+  top.appendChild(lbl); top.appendChild(nm); top.appendChild(pin);
+  body.appendChild(top);
+
+  /* メモ（★修正3） */
+  body.appendChild(buildMemo(it, 'メモ（時間・予約・持ち物など）'));
 }
-function autoGrow(t){ t.style.height='auto'; t.style.height=(t.scrollHeight)+'px'; }
 
 function buildMoveBody(body,it){
   var head=document.createElement('div'); head.className='moveHead';
   var lbl=document.createElement('span'); lbl.className='moveLbl'; lbl.textContent='移動方法';
   var sel=document.createElement('select'); sel.className='moveSelect';
-  MOVES.forEach(function(m){ var o=document.createElement('option'); o.value=m.v; o.textContent=m.emoji+' '+m.name; if(it.move===m.v)o.selected=true; sel.appendChild(o); });
+  MOVES.forEach(function(m){
+    var o=document.createElement('option'); o.value=m.v; o.textContent=m.emoji+' '+m.name;
+    if(it.move===m.v)o.selected=true; sel.appendChild(o);
+  });
   sel.addEventListener('change',function(){ it.move=sel.value; render(); scheduleSave(); });
-  head.appendChild(lbl); head.appendChild(sel); body.appendChild(head);
+  head.appendChild(lbl); head.appendChild(sel);
+  body.appendChild(head);
+
+  /* 所要 / 費用（★修正4: 3桁対応） */
   var meta=document.createElement('div'); meta.className='moveMeta';
+
   var g1=document.createElement('div'); g1.className='metaGrp';
   var l1=document.createElement('span'); l1.className='metaLbl'; l1.textContent='所要';
-  var i1=document.createElement('input'); i1.className='metaInput'; i1.type='number'; i1.min='0'; i1.step='5'; i1.inputMode='numeric'; i1.value=(it.duration==null?'':it.duration); i1.placeholder='0';
+  var i1=document.createElement('input');
+  i1.className='metaInput'; i1.type='number'; i1.min='0'; i1.max='9999'; i1.step='5';
+  i1.inputMode='numeric'; i1.value=(it.duration==null?'':it.duration); i1.placeholder='0';
+  i1.setAttribute('aria-label','所要時間（分）');
   var u1=document.createElement('span'); u1.className='metaUnit'; u1.textContent='分';
-  i1.addEventListener('input',function(){ it.duration = i1.value===''?null:Math.max(0,parseInt(i1.value,10)||0); renderSummary(); scheduleSave(); });
+  i1.addEventListener('input',function(){
+    it.duration = i1.value===''?null:Math.max(0,Math.min(9999,parseInt(i1.value,10)||0));
+    renderSummary(); scheduleSave();
+    var badge=i1.closest('.card').querySelector('.durBadge');
+    if(badge) badge.textContent='+'+(it.duration||0)+'分';
+  });
   g1.appendChild(l1); g1.appendChild(i1); g1.appendChild(u1);
+
   var g2=document.createElement('div'); g2.className='metaGrp';
   var l2=document.createElement('span'); l2.className='metaLbl'; l2.textContent='費用';
   var u2=document.createElement('span'); u2.className='metaUnit'; u2.textContent='¥';
-  var i2=document.createElement('input'); i2.className='metaInput'; i2.type='number'; i2.min='0'; i2.step='10'; i2.inputMode='numeric'; i2.value=(it.cost==null?'':it.cost); i2.placeholder='0';
-  i2.addEventListener('input',function(){ it.cost = i2.value===''?null:Math.max(0,parseInt(i2.value,10)||0); renderSummary(); scheduleSave(); });
+  var i2=document.createElement('input');
+  i2.className='metaInput'; i2.type='number'; i2.min='0'; i2.max='9999999'; i2.step='10';
+  i2.inputMode='numeric'; i2.value=(it.cost==null?'':it.cost); i2.placeholder='0';
+  i2.setAttribute('aria-label','費用');
+  i2.addEventListener('input',function(){
+    it.cost = i2.value===''?null:Math.max(0,parseInt(i2.value,10)||0);
+    renderSummary(); scheduleSave();
+  });
   g2.appendChild(l2); g2.appendChild(u2); g2.appendChild(i2);
-  meta.appendChild(g1); meta.appendChild(g2); body.appendChild(meta);
+
+  meta.appendChild(g1); meta.appendChild(g2);
+  body.appendChild(meta);
+
+  /* メモ（★修正3: 移動にもメモ） */
+  body.appendChild(buildMemo(it, 'メモ（乗換・列車名・座席など）'));
+}
+
+/* メモ欄の共通ビルダー（★修正3） */
+function buildMemo(it, placeholder){
+  var wrap=document.createElement('div'); wrap.className='memoWrap';
+  var lbl=document.createElement('span'); lbl.className='memoLbl'; lbl.textContent='📝';
+  var ta=document.createElement('textarea');
+  ta.className='memoInput'; ta.rows=1; ta.placeholder=placeholder||'メモ'; ta.value=it.note||'';
+  ta.setAttribute('aria-label','メモ');
+  ta.addEventListener('input',function(){ it.note=ta.value; scheduleSave(); });
+  bindGrow(ta);
+  wrap.appendChild(lbl); wrap.appendChild(ta);
+  return wrap;
 }
 
 function renderPlanList(){
@@ -685,7 +781,7 @@ function addDest(name,emoji){
 function addMove(){
   var day=activeDay(); var last=day.items[day.items.length-1];
   var time=last?nextTime(last):'10:00';
-  day.items.push({id:uid(),type:'move',time:time,move:'train',duration:15,cost:0});
+  day.items.push({id:uid(),type:'move',time:time,move:'train',duration:15,cost:0,note:''});
   render(); scheduleSave(); scrollBottom();
 }
 function nextTime(item){
@@ -716,11 +812,10 @@ function moveItem(id,dir){
 }
 function openAddMenu(){ if(confirm('OK=目的地を追加 / キャンセル=移動を追加')) addDest('','📍'); else addMove(); }
 
-/* Suggest */
 var sug=$('suggest');
 function renderSuggest(q){
   q=(q||'').trim().toLowerCase();
-  var list = q ? SUGGESTIONS.filter(function(s){ return s.n.toLowerCase().indexOf(q)>=0 || s.cat.toLowerCase().indexOf(q)>=0; }) : SUGGESTIONS.slice(0,8);
+  var list = q ? SUGGESTIONS.filter(function(s){ return s.n.toLowerCase().indexOf(q)>=0 || s.cat.toLowerCase().indexOf(q)>=0; }) : SUGGESTIONS.slice(0,10);
   if(!list.length){ sug.classList.remove('show'); return; }
   sug.innerHTML = list.map(function(s){
     return '<div class="sugItem" data-n="'+esc(s.n)+'" data-e="'+esc(s.e)+'"><span class="emoji">'+esc(s.e)+'</span><div><div class="nm">'+esc(s.n)+'</div><div class="cat">'+esc(s.cat)+'</div></div></div>';
@@ -731,19 +826,16 @@ function renderSuggest(q){
   });
 }
 
-/* Toast / Modal */
 var toastT=null;
 function toast(msg){ var el=$('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){ el.classList.remove('show'); },3000); }
-function scrollBottom(){ setTimeout(function(){ window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); },40); }
+function scrollBottom(){ setTimeout(function(){ window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); },60); }
 function openModal(id){ $(id).classList.add('show'); }
 function closeModal(){ Array.prototype.forEach.call(document.querySelectorAll('.modalWrap'),function(m){ m.classList.remove('show'); }); }
 Array.prototype.forEach.call(document.querySelectorAll('[data-close]'),function(el){ el.addEventListener('click',closeModal); });
 
-/* 診断 */
 function runDiag(){
   var box=$('diagBox');
   $('gasInput').value = GAS_URL;
-  box.textContent='診断中…';
   var lines=[];
   lines.push('URL: '+GAS_URL);
   lines.push('online: '+navigator.onLine);
@@ -774,9 +866,6 @@ function runDiag(){
   });
 }
 
-/* ============================================================
-   バインド
-   ============================================================ */
 $('addBtn').addEventListener('click',openAddMenu);
 $('mapBtn').addEventListener('click',function(){
   var names=activeDay().items.filter(function(x){ return x.type==='dest'&&x.name; }).map(function(x){ return x.name; });
@@ -832,15 +921,14 @@ $('newPlanBtn').addEventListener('click',function(){
 });
 window.addEventListener('online',function(){ updateNet(); });
 window.addEventListener('offline',function(){ updateNet(); });
+window.addEventListener('resize',function(){
+  Array.prototype.forEach.call(document.querySelectorAll('.destName,.memoInput'),function(t){ autoGrow(t); });
+});
 
-/* Service Worker */
 if('serviceWorker' in navigator){
   window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
 }
 
-/* ============================================================
-   起動
-   ============================================================ */
 (function init(){
   updateNet();
   renderLoading();
