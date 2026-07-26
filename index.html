@@ -22,7 +22,7 @@ body{
   font-family:"Hiragino Sans","Yu Gothic UI","Noto Sans JP",system-ui,-apple-system,sans-serif;
   color:var(--ink);background:linear-gradient(180deg,#faf8f3 0%,#f2ede4 100%);min-height:100vh;
   /* ★修正1: 最下部カードがフッターに隠れないよう十分な余白 */
-  padding-bottom:calc(var(--footH) + 88px + env(safe-area-inset-bottom));
+  padding-bottom:calc(var(--footH) + 200px + env(safe-area-inset-bottom));
 }
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
@@ -679,7 +679,7 @@ function buildDestBody(body,it){
   body.appendChild(top);
 
   /* メモ（★修正3） */
-  body.appendChild(buildMemo(it, 'メモ（時間・予約・持ち物など）'));
+  body.appendChild(buildMemo(it, 'メモ'));
 }
 
 function buildMoveBody(body,it){
@@ -729,7 +729,7 @@ function buildMoveBody(body,it){
   body.appendChild(meta);
 
   /* メモ（★修正3: 移動にもメモ） */
-  body.appendChild(buildMemo(it, 'メモ（乗換・列車名・座席など）'));
+  body.appendChild(buildMemo(it, 'メモ'));
 }
 
 /* メモ欄の共通ビルダー（★修正3） */
