@@ -46,12 +46,10 @@ button{cursor:pointer;border:none;background:none}
 .sumPill .v{font-size:13px;font-weight:900;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .shell{max-width:640px;margin:0 auto;padding:8px 12px}
 .timeline{display:flex;flex-direction:column;gap:10px;position:relative}
-/* ---------- カード基本 ---------- */
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 12px 12px 8px;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;position:relative}
 .card:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
 .card.dragging{opacity:.5;transform:scale(.98)}
 .card.dragOver{outline:2px dashed var(--accent);outline-offset:2px}
-/* カードのグリッド構造 */
 .cardGrid{display:grid;grid-template-columns:18px 40px 78px 1fr;align-items:start;gap:8px}
 .dragHandle{align-self:center;color:var(--mut);cursor:grab;user-select:none;font-size:14px;line-height:1;padding:8px 0;touch-action:none;text-align:center}
 .dragHandle:active{cursor:grabbing}
@@ -82,12 +80,10 @@ button{cursor:pointer;border:none;background:none}
 .metaInput{flex:1;min-width:0;width:100%;border:none;background:transparent;font-size:13px;font-weight:700;padding:2px 0;font-variant-numeric:tabular-nums}
 .metaInput:focus{outline:none}
 .metaUnit{font-size:10px;color:var(--mut);font-weight:700;flex:0 0 auto}
-/* 削除ボタン: 上に載せない、右側に別枠で配置 */
 .cardActions{position:absolute;top:6px;right:6px;display:flex;gap:2px;opacity:.6;transition:opacity .15s;z-index:2}
 .card:hover .cardActions,.card:focus-within .cardActions{opacity:1}
 .actBtn{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--mut);background:rgba(255,255,255,.85);transition:.15s;backdrop-filter:blur(4px)}
 .actBtn:hover{background:rgba(239,68,68,.15);color:var(--danger)}
-/* ---------- フッター ---------- */
 .footer{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(250,248,243,0),rgba(250,248,243,.98) 30%);pointer-events:none}
 .footInner{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:8px;pointer-events:auto}
 .addBtn{width:48px;height:48px;border-radius:50%;background:var(--ink);color:#fff;font-size:24px;font-weight:300;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-lg);flex:0 0 auto;transition:transform .12s,background .15s}
@@ -101,7 +97,7 @@ button{cursor:pointer;border:none;background:none}
 .empty{padding:36px 16px;text-align:center;color:var(--mut);border:2px dashed var(--line);border-radius:18px;background:#fdfcf8}
 .empty .emoji{font-size:40px;margin-bottom:8px}
 .empty .t{font-size:14px;font-weight:800;color:var(--ink2);margin-bottom:4px}
-.empty .s{font-size:11px;line-height:1.6}
+.empty .s{font-size:11px;line-height:1.6;word-break:break-word}
 .suggest{position:fixed;left:12px;right:12px;bottom:74px;z-index:59;max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);max-height:240px;overflow-y:auto;display:none}
 .suggest.show{display:block}
 .sugItem{padding:10px 14px;display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line);cursor:pointer;transition:.12s}
@@ -110,12 +106,12 @@ button{cursor:pointer;border:none;background:none}
 .sugItem .emoji{font-size:18px}
 .sugItem .nm{font-size:13px;font-weight:700}
 .sugItem .cat{font-size:10px;color:var(--mut);margin-top:2px}
-.toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(20px);padding:10px 16px;border-radius:12px;background:#1f2937;color:#fff;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:.24s;z-index:200;box-shadow:var(--shadow-lg);max-width:calc(100% - 24px);text-align:center;line-height:1.5}
+.toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(20px);padding:10px 16px;border-radius:12px;background:#1f2937;color:#fff;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:.24s;z-index:200;box-shadow:var(--shadow-lg);max-width:calc(100% - 24px);text-align:center;line-height:1.5;word-break:break-word}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .modalWrap{position:fixed;inset:0;display:none;align-items:flex-end;justify-content:center;z-index:300;padding:0}
 .modalWrap.show{display:flex}
 .modalWrap .bd{position:absolute;inset:0;background:rgba(0,0,0,.42)}
-.sheet{position:relative;background:#fff;width:100%;max-width:640px;border-radius:20px 20px 0 0;box-shadow:0 -12px 40px rgba(0,0,0,.25);padding:16px 14px calc(18px + env(safe-area-inset-bottom));max-height:80vh;overflow-y:auto;animation:slideUp .22s ease-out}
+.sheet{position:relative;background:#fff;width:100%;max-width:640px;border-radius:20px 20px 0 0;box-shadow:0 -12px 40px rgba(0,0,0,.25);padding:16px 14px calc(18px + env(safe-area-inset-bottom));max-height:82vh;overflow-y:auto;animation:slideUp .22s ease-out}
 @keyframes slideUp{from{transform:translateY(30px);opacity:.6}to{transform:translateY(0);opacity:1}}
 .sheet .grabber{width:40px;height:4px;background:#d1d5db;border-radius:99px;margin:0 auto 12px}
 .sheet h2{font-size:16px;font-weight:900;margin-bottom:10px}
@@ -130,12 +126,15 @@ button{cursor:pointer;border:none;background:none}
 .planItem .delBtn:hover{background:rgba(239,68,68,.1);color:var(--danger)}
 .newPlanBtn{width:100%;padding:12px;border-radius:12px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;text-align:center}
 .newPlanBtn:active{transform:scale(.98)}
-.hlp{font-size:10px;color:var(--mut);line-height:1.6;margin-top:6px}
+.hlp{font-size:10px;color:var(--mut);line-height:1.6;margin-top:6px;word-break:break-all}
+.diagBox{font-size:11px;line-height:1.7;background:#f8f5ee;border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;max-height:200px;overflow:auto}
+.setRow{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.setRow label{font-size:11px;font-weight:800;color:var(--mut)}
+.setRow input{padding:10px;border-radius:11px;border:1px solid var(--line);background:#fbfbf8;font-size:12px}
+.setRow input:focus{outline:none;border-color:var(--accent);background:#fff}
 .loadingBox{padding:30px;text-align:center;color:var(--mut);font-size:13px}
 .loadingBox .spin{display:inline-block;width:20px;height:20px;border:3px solid var(--line);border-top-color:var(--ink);border-radius:50%;animation:spin .8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-/* ==================== レスポンシブ ==================== */
-/* タブレット以上 */
 @media(min-width:520px){
   .cardGrid{grid-template-columns:22px 44px 96px 1fr;gap:10px}
   .card{padding:14px 14px 14px 10px}
@@ -148,7 +147,6 @@ button{cursor:pointer;border:none;background:none}
   .netInd{font-size:11px;padding:4px 10px}
   .dayChip{font-size:13px;padding:8px 14px;border-radius:12px}
   .sumPill .v{font-size:15px}
-  .sumPill .k{font-size:10px}
   .destLbl{font-size:12px}.destName{font-size:15px}.destNote{font-size:13px}
   .moveLbl{font-size:15px}.moveSelect{font-size:14px}
   .metaLbl{font-size:11px}.metaInput{font-size:14px}
@@ -156,7 +154,6 @@ button{cursor:pointer;border:none;background:none}
   .searchWrap{padding:12px 16px;border-radius:26px}
   .searchInput{font-size:14px}
 }
-/* 小型スマホ (幅360px以下) */
 @media(max-width:359px){
   .cardGrid{grid-template-columns:16px 36px 66px 1fr;gap:6px}
   .card{padding:10px 10px 10px 6px;border-radius:16px}
@@ -164,19 +161,15 @@ button{cursor:pointer;border:none;background:none}
   .timeInput{font-size:12px;padding:7px 4px}
   .durBadge{font-size:9px}
   .destTop{padding:7px 8px;gap:4px}
-  .destLbl{font-size:10px}
-  .destName{font-size:13px}
-  .destNote{font-size:11px}
+  .destLbl{font-size:10px}.destName{font-size:13px}.destNote{font-size:11px}
   .moveLbl{font-size:12px}
   .moveSelect{font-size:12px;padding:7px 8px;min-width:100px}
   .metaGrp{padding:6px 8px;gap:3px}
-  .metaLbl{font-size:9px}
-  .metaInput{font-size:12px}
+  .metaLbl{font-size:9px}.metaInput{font-size:12px}
   .appTitle{font-size:16px}
   .headInner{padding:10px 10px;grid-template-columns:36px 1fr 36px}
   .iconBtn{width:36px;height:36px;font-size:16px}
-  .sumPill{padding:7px 8px}
-  .sumPill .v{font-size:12px}
+  .sumPill{padding:7px 8px}.sumPill .v{font-size:12px}
   .subBar{padding:0 10px 6px;gap:4px}
   .planBtn{font-size:11px;padding:7px 8px}
   .miniBtn{font-size:10px;padding:7px 8px}
@@ -194,8 +187,9 @@ button{cursor:pointer;border:none;background:none}
   </div>
   <div class="subBar">
     <button class="planBtn" id="planPickBtn"><span class="cur" id="planCurName">プランを選ぶ</span><span class="caret">▼</span></button>
-    <button class="miniBtn" id="saveBtn" title="クラウド保存">☁ 保存</button>
+    <button class="miniBtn" id="saveBtn" title="保存">☁ 保存</button>
     <button class="miniBtn" id="reloadBtn" title="再読み込み">🔄</button>
+    <button class="miniBtn" id="diagBtn" title="接続診断">🩺</button>
     <span class="netInd" id="netInd">-</span>
   </div>
   <div class="dayStrip" id="dayStrip"></div>
@@ -219,7 +213,6 @@ button{cursor:pointer;border:none;background:none}
 
 <div class="toast" id="toast"></div>
 
-<!-- プラン選択シート -->
 <div class="modalWrap" id="planModal">
   <div class="bd" data-close></div>
   <div class="sheet">
@@ -227,7 +220,25 @@ button{cursor:pointer;border:none;background:none}
     <h2>🧳 旅行プラン一覧</h2>
     <div class="planList" id="planList"></div>
     <button class="newPlanBtn" id="newPlanBtn">＋ 新しい旅行プランを作成</button>
-    <div class="hlp">プラン一覧はスプレッドシートから直接取得しています。どの端末からも同じデータが見えます。</div>
+    <div class="hlp">一覧はスプレッドシートから直接取得しています。同じURLを開けばどの端末でも同じデータになります。</div>
+  </div>
+</div>
+
+<div class="modalWrap" id="diagModal">
+  <div class="bd" data-close></div>
+  <div class="sheet">
+    <div class="grabber"></div>
+    <h2>🩺 接続診断</h2>
+    <div class="diagBox" id="diagBox">診断中…</div>
+    <div class="setRow">
+      <label>GAS Webアプリ URL（再デプロイ時はここを更新）</label>
+      <input id="gasInput" type="url" placeholder="https://script.google.com/macros/s/…/exec">
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="miniBtn primary" id="gasSaveBtn" style="flex:1;padding:12px">URLを保存して再接続</button>
+      <button class="miniBtn" id="gasResetBtn" style="padding:12px">既定に戻す</button>
+    </div>
+    <div class="hlp">保存したURLはこの端末のブラウザに記憶されます（データ本体はスプレッドシート側です）。</div>
   </div>
 </div>
 
@@ -235,398 +246,618 @@ button{cursor:pointer;border:none;background:none}
 'use strict';
 
 /* ============================================================
-   ⚠️ ここに Apps Script Webアプリ の URL を貼り付け
-   デプロイ後に取得した https://script.google.com/macros/s/…/exec
+   GAS Webアプリ URL（既定値）
+   ※再デプロイでURLが変わったら 🩺 画面から更新できます
    ============================================================ */
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbyoCoNQrSlS5HN3pM84RpAY_7Thp-6xLTwrzd6ZNrMRG9_CkuyYawpR6EdUGXdrjaU3ag/exec';
-/* ============================================================ */
+var DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbyoCoNQrSlS5HN3pM84RpAY_7Thp-6xLTwrzd6ZNrMRG9_CkuyYawpR6EdUGXdrjaU3ag/exec';
+var LS_GAS = 'tp4_gasurl';
 
-const MOVES=[{v:'walk',name:'徒歩',emoji:'🚶'},{v:'train',name:'電車',emoji:'🚆'},{v:'subway',name:'地下鉄',emoji:'🚇'},{v:'bus',name:'バス',emoji:'🚌'},{v:'taxi',name:'タクシー',emoji:'🚕'},{v:'bike',name:'自転車',emoji:'🚲'}];
-const SUGGESTIONS=[{n:'浅草寺',cat:'寺社',e:'⛩️'},{n:'東京スカイツリー',cat:'展望',e:'🗼'},{n:'上野公園',cat:'公園',e:'🌳'},{n:'秋葉原',cat:'ショッピング',e:'🎮'},{n:'渋谷スクランブル交差点',cat:'名所',e:'🚦'},{n:'明治神宮',cat:'寺社',e:'⛩️'},{n:'東京駅',cat:'交通',e:'🚉'},{n:'皇居',cat:'名所',e:'🏯'},{n:'表参道ヒルズ',cat:'ショッピング',e:'🛍️'},{n:'豊洲市場',cat:'グルメ',e:'🐟'},{n:'お台場',cat:'観光',e:'🌉'},{n:'新宿御苑',cat:'公園',e:'🌸'},{n:'原宿',cat:'ショッピング',e:'🎀'},{n:'銀座',cat:'ショッピング',e:'💎'},{n:'六本木ヒルズ',cat:'展望',e:'🌃'}];
-
-/* ============================================================
-   Runtime state (メモリ内のみ、ローカル保存なし)
-   ============================================================ */
-let state = null;      // 現在編集中のプラン
-let activeId = '';     // 現在編集中のプランID
-let plans = [];        // クラウド一覧
-let dragId = null;
-let saveT = null;
-let netStatus = 'online';
-let loading = false;
+function getGasUrl(){
+  try{
+    var q = new URL(location.href).searchParams.get('gas');
+    if(q){ localStorage.setItem(LS_GAS, q); return q; }
+    var s = localStorage.getItem(LS_GAS);
+    if(s) return s;
+  }catch(e){}
+  return DEFAULT_GAS_URL;
+}
+var GAS_URL = getGasUrl();
 
 /* ============================================================
-   Utils
+   定数
    ============================================================ */
-const $=id=>document.getElementById(id);
-function esc(s){const d=document.createElement('div');d.textContent=String(s??'');return d.innerHTML;}
+var MOVES=[{v:'walk',name:'徒歩',emoji:'🚶'},{v:'train',name:'電車',emoji:'🚆'},{v:'subway',name:'地下鉄',emoji:'🚇'},{v:'bus',name:'バス',emoji:'🚌'},{v:'taxi',name:'タクシー',emoji:'🚕'},{v:'bike',name:'自転車',emoji:'🚲'}];
+var SUGGESTIONS=[{n:'浅草寺',cat:'寺社',e:'⛩️'},{n:'東京スカイツリー',cat:'展望',e:'🗼'},{n:'上野公園',cat:'公園',e:'🌳'},{n:'秋葉原',cat:'ショッピング',e:'🎮'},{n:'渋谷スクランブル交差点',cat:'名所',e:'🚦'},{n:'明治神宮',cat:'寺社',e:'⛩️'},{n:'東京駅',cat:'交通',e:'🚉'},{n:'皇居',cat:'名所',e:'🏯'},{n:'表参道ヒルズ',cat:'ショッピング',e:'🛍️'},{n:'豊洲市場',cat:'グルメ',e:'🐟'},{n:'お台場',cat:'観光',e:'🌉'},{n:'新宿御苑',cat:'公園',e:'🌸'},{n:'原宿',cat:'ショッピング',e:'🎀'},{n:'銀座',cat:'ショッピング',e:'💎'},{n:'六本木ヒルズ',cat:'展望',e:'🌃'}];
+
+/* ============================================================
+   状態（クラウドが正。ローカル保存はGAS URLのみ）
+   ============================================================ */
+var state=null, activeId='', plans=[], dragId=null, saveT=null, netStatus='online', lastError='';
+
+var $=function(id){return document.getElementById(id);};
+function esc(s){var d=document.createElement('div');d.textContent=String(s==null?'':s);return d.innerHTML;}
 function uid(){return 'i'+Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4);}
-function normTime(s){s=String(s||'').trim();const m=s.match(/^(\d{1,2}):?(\d{2})$/);if(!m)return null;let h=parseInt(m[1],10),mi=parseInt(m[2],10);if(isNaN(h)||isNaN(mi))return null;if(h<0||h>23||mi<0||mi>59)return null;return String(h).padStart(2,'0')+':'+String(mi).padStart(2,'0');}
-function toMin(t){const m=/^(\d{2}):(\d{2})$/.exec(t||'');if(!m)return 0;return parseInt(m[1],10)*60+parseInt(m[2],10);}
-function activeDay(){if(!state)return null;return state.days.find(d=>d.id===state.activeDayId)||state.days[0];}
+function normTime(s){s=String(s||'').trim();var m=s.match(/^(\d{1,2}):?(\d{2})$/);if(!m)return null;var h=parseInt(m[1],10),mi=parseInt(m[2],10);if(isNaN(h)||isNaN(mi))return null;if(h<0||h>23||mi<0||mi>59)return null;return String(h).padStart(2,'0')+':'+String(mi).padStart(2,'0');}
+function toMin(t){var m=/^(\d{2}):(\d{2})$/.exec(t||'');if(!m)return 0;return parseInt(m[1],10)*60+parseInt(m[2],10);}
+function activeDay(){if(!state)return null;for(var i=0;i<state.days.length;i++){if(state.days[i].id===state.activeDayId)return state.days[i];}return state.days[0];}
 
 /* ============================================================
-   Network status
+   通信レイヤ（CORS完全回避）
+   読み取り: fetch → 失敗時 JSONP
+   書き込み: fetch → 失敗時 iframeフォームPOST（送りっぱなし）→ 一覧で確認
+   ============================================================ */
+function b64url(str){
+  var bytes = new TextEncoder().encode(str);
+  var bin='';
+  for(var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+
+var jsonpSeq=0;
+function jsonp(params, timeoutMs){
+  timeoutMs = timeoutMs || 20000;
+  return new Promise(function(resolve,reject){
+    var cb = '__tpcb'+(++jsonpSeq)+'_'+Date.now().toString(36);
+    var s = document.createElement('script');
+    var done=false, timer=null;
+    function cleanup(){
+      try{ delete window[cb]; }catch(e){ window[cb]=undefined; }
+      if(s.parentNode) s.parentNode.removeChild(s);
+      if(timer) clearTimeout(timer);
+    }
+    window[cb] = function(data){
+      done=true; cleanup();
+      if(data && data.ok===false) reject(new Error(data.error||'サーバーエラー'));
+      else resolve(data);
+    };
+    timer = setTimeout(function(){ if(!done){ cleanup(); reject(new Error('タイムアウト')); } }, timeoutMs);
+    var obj = Object.assign({}, params, {callback:cb, _:Date.now()});
+    var q = new URLSearchParams(obj).toString();
+    s.src = GAS_URL + '?' + q;
+    s.onerror = function(){ if(!done){ cleanup(); reject(new Error('接続失敗（URLかデプロイ設定を確認）')); } };
+    document.head.appendChild(s);
+  });
+}
+
+function fetchGet(params){
+  var q = new URLSearchParams(Object.assign({}, params, {_:Date.now()})).toString();
+  return fetch(GAS_URL+'?'+q, {redirect:'follow'}).then(function(r){return r.text();}).then(function(t){
+    var j; try{ j=JSON.parse(t); }catch(e){ throw new Error('応答不正'); }
+    if(!j.ok) throw new Error(j.error||'サーバーエラー');
+    return j;
+  });
+}
+
+function fetchPost(body){
+  return fetch(GAS_URL, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(body),
+    redirect:'follow'
+  }).then(function(r){return r.text();}).then(function(t){
+    var j; try{ j=JSON.parse(t); }catch(e){ throw new Error('応答不正'); }
+    if(!j.ok) throw new Error(j.error||'サーバーエラー');
+    return j;
+  });
+}
+
+function formPost(body){
+  return new Promise(function(resolve){
+    var name='tpifr_'+Date.now().toString(36);
+    var ifr=document.createElement('iframe');
+    ifr.name=name; ifr.style.display='none';
+    document.body.appendChild(ifr);
+    var f=document.createElement('form');
+    f.method='POST'; f.action=GAS_URL; f.target=name; f.style.display='none';
+    var i=document.createElement('input');
+    i.type='hidden'; i.name='payload'; i.value=b64url(JSON.stringify(body));
+    f.appendChild(i); document.body.appendChild(f);
+    f.submit();
+    setTimeout(function(){
+      try{ f.parentNode&&f.parentNode.removeChild(f); ifr.parentNode&&ifr.parentNode.removeChild(ifr); }catch(e){}
+      resolve({ok:true, viaForm:true});
+    }, 2600);
+  });
+}
+
+/* 読み取り */
+function apiRead(params){
+  return fetchGet(params).catch(function(e1){
+    return jsonp(params).catch(function(e2){
+      throw new Error(e2.message||e1.message||'通信失敗');
+    });
+  });
+}
+
+/* 書き込み */
+function apiWrite(body){
+  return fetchPost(body).catch(function(e1){
+    // JSONP経由（payloadが短ければGETでも通る）
+    var payload = b64url(JSON.stringify(body));
+    if(payload.length < 1600){
+      return jsonp({payload:payload}).catch(function(){ return formPost(body); });
+    }
+    return formPost(body);
+  });
+}
+
+/* ============================================================
+   ネット状態
    ============================================================ */
 function updateNet(){
-  const el=$('netInd');
-  if(!GAS_URL||GAS_URL==='PASTE_YOUR_GAS_WEBAPP_URL_HERE'){el.className='netInd error';el.textContent='要設定';return;}
-  if(!navigator.onLine){el.className='netInd offline';el.textContent='オフライン';netStatus='offline';return;}
-  if(netStatus==='saving'){el.className='netInd saving';el.textContent='保存中…';return;}
-  if(netStatus==='error'){el.className='netInd error';el.textContent='同期失敗';return;}
-  el.className='netInd online';el.textContent='● オンライン';netStatus='online';
-}
-
-async function gasPost(body){
-  if(!GAS_URL||GAS_URL==='PASTE_YOUR_GAS_WEBAPP_URL_HERE') throw new Error('GAS URL未設定');
-  const res=await fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body),redirect:'follow'});
-  const txt=await res.text();
-  let j; try{j=JSON.parse(txt);}catch(e){throw new Error('応答不正: '+txt.slice(0,150));}
-  if(!j.ok) throw new Error(j.error||'サーバーエラー');
-  return j;
-}
-async function gasGet(params){
-  if(!GAS_URL||GAS_URL==='PASTE_YOUR_GAS_WEBAPP_URL_HERE') throw new Error('GAS URL未設定');
-  const q=new URLSearchParams(params).toString();
-  const res=await fetch(GAS_URL+'?'+q,{redirect:'follow'});
-  const txt=await res.text();
-  let j; try{j=JSON.parse(txt);}catch(e){throw new Error('応答不正');}
-  if(!j.ok) throw new Error(j.error||'サーバーエラー');
-  return j;
+  var el=$('netInd');
+  if(!GAS_URL || GAS_URL.indexOf('script.google.com')<0){ el.className='netInd error'; el.textContent='URL未設定'; return; }
+  if(!navigator.onLine){ el.className='netInd offline'; el.textContent='オフライン'; netStatus='offline'; return; }
+  if(netStatus==='saving'){ el.className='netInd saving'; el.textContent='保存中…'; return; }
+  if(netStatus==='error'){ el.className='netInd error'; el.textContent='同期失敗'; return; }
+  el.className='netInd online'; el.textContent='● オンライン'; netStatus='online';
 }
 
 /* ============================================================
-   Cloud operations
+   クラウド操作
    ============================================================ */
-function scheduleSave(){clearTimeout(saveT);saveT=setTimeout(()=>doCloudSave(false),1000);}
+function scheduleSave(){ clearTimeout(saveT); saveT=setTimeout(function(){ doSave(false); }, 1200); }
 
-async function doCloudSave(manual){
-  if(!state||!activeId) return;
+function doSave(manual){
+  if(!state) return Promise.resolve();
   if(!navigator.onLine){
     netStatus='offline'; updateNet();
-    if(manual) toast('オフラインです。オンライン復帰後にもう一度保存してください');
-    return;
+    if(manual) toast('オフラインです。復帰後に「☁ 保存」を押してください');
+    return Promise.resolve();
   }
-  try{
-    netStatus='saving'; updateNet();
-    const res = await gasPost({action:'save',planId:activeId,title:state.title,data:state});
-    if(res.planId && res.planId !== activeId){
-      activeId = res.planId;
-    }
-    // 一覧更新
-    const p=plans.find(p=>p.planId===activeId);
-    if(p){p.title=state.title;p.updatedAt=res.updatedAt||new Date().toISOString();}
-    else{plans.unshift({planId:activeId,title:state.title,updatedAt:res.updatedAt,createdAt:new Date().toISOString()});}
-    netStatus='online'; updateNet();
-    if(manual) toast('☁ 保存しました');
-  }catch(e){
-    console.error(e);
+  netStatus='saving'; updateNet();
+  var body = {action:'save', planId:activeId, title:state.title, data:state};
+  return apiWrite(body).then(function(res){
+    if(res && res.planId){ activeId = res.planId; }
+    var found=null;
+    for(var i=0;i<plans.length;i++){ if(plans[i].planId===activeId){ found=plans[i]; break; } }
+    var stamp = (res && res.updatedAt) || new Date().toISOString();
+    if(found){ found.title=state.title; found.updatedAt=stamp; }
+    else{ plans.unshift({planId:activeId, title:state.title, updatedAt:stamp, createdAt:stamp}); }
+    netStatus='online'; lastError=''; updateNet();
+    if(manual) toast(res && res.viaForm ? '☁ 保存を送信しました' : '☁ 保存しました');
+    if(res && res.viaForm){ return refreshPlans().then(function(){ syncActiveId(); }); }
+  }).catch(function(e){
+    netStatus='error'; lastError=String(e.message||e); updateNet();
+    toast('保存失敗: '+lastError);
+  });
+}
+
+function syncActiveId(){
+  if(activeId) return;
+  if(plans.length){ activeId = plans[0].planId; }
+}
+
+function refreshPlans(){
+  return apiRead({action:'list'}).then(function(res){
+    plans = (res && res.plans) || [];
+    renderPlanList();
+    return plans;
+  }).catch(function(e){
+    lastError=String(e.message||e);
     netStatus='error'; updateNet();
-    if(manual) toast('同期失敗: '+(e.message||''));
-    else toast('自動保存に失敗しました');
-  }
+    toast('一覧取得失敗: '+lastError);
+    renderPlanList();
+    return plans;
+  });
 }
 
-async function refreshPlans(){
-  try{
-    const res = await gasGet({action:'list'});
-    plans = res.plans||[];
-    renderPlanList();
-  }catch(e){
-    toast('一覧取得失敗: '+e.message);
-    renderPlanList();
-  }
-}
-
-async function loadPlan(planId){
-  loading = true;
+function loadPlan(planId){
   renderLoading();
-  try{
-    const res = await gasGet({action:'get',planId});
-    if(res.plan && res.plan.data){
-      state = res.plan.data;
+  return apiRead({action:'get', planId:planId}).then(function(res){
+    if(res && res.plan){
+      state = (res.plan.data && res.plan.data.days) ? res.plan.data : initialPlanData(res.plan.title);
       state.title = res.plan.title || state.title || '旅行計画';
       activeId = planId;
-    } else {
-      state = initialPlanData();
-      activeId = planId;
+    }else{
+      state = initialPlanData(); activeId = planId;
     }
-  }catch(e){
-    toast('読み込み失敗: '+e.message);
-    state = initialPlanData();
-    activeId = planId;
-  }
-  loading = false;
-  render();
-  closeModal();
-}
-
-async function createPlan(title){
-  loading = true;
-  state = initialPlanData(title);
-  activeId = ''; // GAS側で新規発行
-  render();
-  closeModal();
-  // 即保存してplanIdを確定
-  try{
-    netStatus='saving'; updateNet();
-    const res = await gasPost({action:'save',planId:'',title:state.title,data:state});
-    activeId = res.planId;
-    plans.unshift({planId:activeId,title:state.title,updatedAt:res.updatedAt,createdAt:new Date().toISOString()});
     netStatus='online'; updateNet();
-    toast('新しいプランを作成しました');
-  }catch(e){
+    render(); closeModal();
+  }).catch(function(e){
+    lastError=String(e.message||e);
     netStatus='error'; updateNet();
-    toast('作成失敗: '+e.message);
-  }
-  loading = false;
-  render();
+    toast('読み込み失敗: '+lastError);
+    if(!state){ state=initialPlanData(); activeId=planId; render(); }
+    closeModal();
+  });
 }
 
-async function deletePlan(planId,titleName){
-  if(!confirm('「'+(titleName||planId)+'」を削除しますか？'))return;
-  try{
-    await gasPost({action:'delete',planId});
-    plans = plans.filter(p=>p.planId!==planId);
-    renderPlanList();
-    toast('削除しました');
-    if(activeId===planId){
-      if(plans.length){ loadPlan(plans[0].planId); }
-      else{ createPlan('新しい旅行'); }
+function createPlan(title){
+  state = initialPlanData(title);
+  activeId = '';
+  render(); closeModal();
+  netStatus='saving'; updateNet();
+  return apiWrite({action:'save', planId:'', title:state.title, data:state}).then(function(res){
+    if(res && res.planId){
+      activeId = res.planId;
+      plans.unshift({planId:activeId, title:state.title, updatedAt:res.updatedAt||new Date().toISOString(), createdAt:new Date().toISOString()});
+      netStatus='online'; updateNet(); render();
+      toast('新しいプランを作成しました');
+    }else{
+      return refreshPlans().then(function(){
+        if(plans.length){ activeId=plans[0].planId; }
+        netStatus='online'; updateNet(); render();
+        toast('作成しました');
+      });
     }
-  }catch(e){
-    toast('削除失敗: '+e.message);
-  }
+  }).catch(function(e){
+    netStatus='error'; lastError=String(e.message||e); updateNet();
+    toast('作成失敗: '+lastError);
+  });
+}
+
+function deletePlan(planId,titleName){
+  if(!confirm('「'+(titleName||planId)+'」を削除しますか？')) return;
+  apiWrite({action:'delete', planId:planId}).then(function(){
+    plans = plans.filter(function(p){ return p.planId!==planId; });
+    renderPlanList(); toast('削除しました');
+    if(activeId===planId){
+      if(plans.length) loadPlan(plans[0].planId);
+      else createPlan('新しい旅行');
+    }
+  }).catch(function(e){ toast('削除失敗: '+(e.message||e)); });
 }
 
 /* ============================================================
-   Initial data
+   初期データ
    ============================================================ */
 function initialPlanData(title){
-  const dayId=uid();
-  return {
-    title: title||'新しい旅行',
-    activeDayId: dayId,
-    days:[{id:dayId,name:'1日目',date:new Date().toISOString().slice(0,10),items:[]}]
-  };
+  var dayId=uid();
+  return { title: title||'新しい旅行', activeDayId:dayId,
+    days:[{id:dayId, name:'1日目', date:new Date().toISOString().slice(0,10), items:[]}] };
+}
+function sampleData(){
+  var dayId=uid();
+  return { title:'東京旅行計画', activeDayId:dayId, days:[{id:dayId,name:'1日目',date:new Date().toISOString().slice(0,10),items:[
+    {id:uid(),type:'dest',time:'10:00',name:'浅草寺',note:'雷門と仲見世通りを散策',emoji:'⛩️'},
+    {id:uid(),type:'move',time:'11:30',move:'subway',duration:25,cost:200},
+    {id:uid(),type:'dest',time:'12:00',name:'上野公園',note:'ランチと博物館',emoji:'🌳'},
+    {id:uid(),type:'move',time:'14:30',move:'walk',duration:15,cost:0},
+    {id:uid(),type:'dest',time:'14:45',name:'アメ横',note:'食べ歩き',emoji:'🍡'},
+    {id:uid(),type:'move',time:'16:00',move:'train',duration:20,cost:180},
+    {id:uid(),type:'dest',time:'16:30',name:'東京スカイツリー',note:'夜景を見る',emoji:'🗼'}
+  ]}]};
 }
 
 /* ============================================================
-   Rendering
+   描画
    ============================================================ */
-function renderLoading(){
-  $('timeline').innerHTML = '<div class="loadingBox"><span class="spin"></span>読み込み中…</div>';
-}
+function renderLoading(){ $('timeline').innerHTML='<div class="loadingBox"><span class="spin"></span>読み込み中…</div>'; }
 
 function render(){
   if(!state) return;
-  renderDayStrip();
-  renderTimeline();
-  renderSummary();
+  renderDayStrip(); renderTimeline(); renderSummary();
   $('tripTitle').textContent = state.title || '旅行計画';
-  const p = plans.find(p=>p.planId===activeId);
-  $('planCurName').textContent = p ? p.title : (state.title || 'プランを選ぶ');
+  var cur=null;
+  for(var i=0;i<plans.length;i++){ if(plans[i].planId===activeId){ cur=plans[i]; break; } }
+  $('planCurName').textContent = cur ? cur.title : (state.title || 'プランを選ぶ');
 }
 
 function renderDayStrip(){
-  const el=$('dayStrip');el.innerHTML='';
-  state.days.forEach((d,i)=>{
-    const b=document.createElement('button');
+  var el=$('dayStrip'); el.innerHTML='';
+  state.days.forEach(function(d,i){
+    var b=document.createElement('button');
     b.className='dayChip'+(d.id===state.activeDayId?' act':'');
     b.textContent=d.name||('Day '+(i+1));
-    b.onclick=()=>{state.activeDayId=d.id;render();scheduleSave();};
-    b.oncontextmenu=(e)=>{e.preventDefault();renameDay(d);};
+    b.onclick=function(){ state.activeDayId=d.id; render(); scheduleSave(); };
+    b.oncontextmenu=function(e){ e.preventDefault(); renameDay(d); };
     el.appendChild(b);
   });
-  const add=document.createElement('button');
-  add.className='dayChip addDay';add.textContent='＋ 日を追加';add.onclick=addDay;
+  var add=document.createElement('button');
+  add.className='dayChip addDay'; add.textContent='＋ 日を追加'; add.onclick=addDay;
   el.appendChild(add);
 }
 
 function renderSummary(){
-  const day=activeDay();if(!day)return;
-  let cost=0,mv=0,cnt=day.items.length;
-  day.items.forEach(it=>{if(it.type==='move'){cost+=Number(it.cost)||0;mv+=Number(it.duration)||0;}});
+  var day=activeDay(); if(!day) return;
+  var cost=0, mv=0, cnt=day.items.length;
+  day.items.forEach(function(it){ if(it.type==='move'){ cost+=Number(it.cost)||0; mv+=Number(it.duration)||0; } });
   $('sumCost').textContent='¥'+cost.toLocaleString('ja-JP');
-  $('sumMove').textContent=(mv>=60?Math.floor(mv/60)+'時間'+(mv%60?(mv%60)+'分':''):mv+'分');
+  $('sumMove').textContent=(mv>=60? Math.floor(mv/60)+'時間'+(mv%60?(mv%60)+'分':'') : mv+'分');
   $('sumCount').textContent=String(cnt);
 }
 
 function renderTimeline(){
-  const wrap=$('timeline');wrap.innerHTML='';
-  const day=activeDay();if(!day)return;
+  var wrap=$('timeline'); wrap.innerHTML='';
+  var day=activeDay(); if(!day) return;
   if(!day.items.length){
-    const e=document.createElement('div');e.className='empty';
+    var e=document.createElement('div'); e.className='empty';
     e.innerHTML='<div class="emoji">🧳</div><div class="t">まだ予定がありません</div><div class="s">下の＋ボタンか、検索欄から追加できます</div>';
-    wrap.appendChild(e);return;
+    wrap.appendChild(e); return;
   }
-  day.items.forEach(it=>wrap.appendChild(renderItem(it)));
+  day.items.forEach(function(it){ wrap.appendChild(renderItem(it)); });
 }
 
 function renderItem(it){
-  const card=document.createElement('article');
+  var card=document.createElement('article');
   card.className='card '+(it.type==='dest'?'dest':'move');
-  card.draggable=true;card.dataset.id=it.id;
-  const grid=document.createElement('div');grid.className='cardGrid';
-  const dh=document.createElement('div');dh.className='dragHandle';dh.innerHTML='⋮⋮';
-  const ic=document.createElement('div');ic.className='cardIcon';
-  ic.textContent=it.type==='dest'?(it.emoji||'📍'):(MOVES.find(m=>m.v===it.move)?.emoji||'🚶');
-  const tc=document.createElement('div');tc.className='timeCol';
-  const tIn=document.createElement('input');tIn.className='timeInput';tIn.type='time';tIn.value=it.time||'';tIn.step=60;
-  tIn.addEventListener('change',()=>{const v=normTime(tIn.value);if(!v){toast('時刻の形式が正しくありません');tIn.value=it.time||'';return;}it.time=v;renderSummary();scheduleSave();});
+  card.draggable=true; card.dataset.id=it.id;
+  var grid=document.createElement('div'); grid.className='cardGrid';
+  var dh=document.createElement('div'); dh.className='dragHandle'; dh.innerHTML='⋮⋮';
+  var ic=document.createElement('div'); ic.className='cardIcon';
+  var mv=null; for(var i=0;i<MOVES.length;i++){ if(MOVES[i].v===it.move){ mv=MOVES[i]; break; } }
+  ic.textContent = it.type==='dest' ? (it.emoji||'📍') : (mv?mv.emoji:'🚶');
+  var tc=document.createElement('div'); tc.className='timeCol';
+  var tIn=document.createElement('input'); tIn.className='timeInput'; tIn.type='time'; tIn.value=it.time||''; tIn.step=60;
+  tIn.addEventListener('change',function(){
+    var v=normTime(tIn.value);
+    if(!v){ toast('時刻の形式が正しくありません'); tIn.value=it.time||''; return; }
+    it.time=v; renderSummary(); scheduleSave();
+  });
   tc.appendChild(tIn);
-  if(it.type==='move'&&it.duration){const b=document.createElement('div');b.className='durBadge';b.textContent='+'+it.duration+'分';tc.appendChild(b);}
-  const body=document.createElement('div');body.className='body';
-  if(it.type==='dest')buildDestBody(body,it);else buildMoveBody(body,it);
-  grid.appendChild(dh);grid.appendChild(ic);grid.appendChild(tc);grid.appendChild(body);
+  if(it.type==='move'&&it.duration){ var b=document.createElement('div'); b.className='durBadge'; b.textContent='+'+it.duration+'分'; tc.appendChild(b); }
+  var body=document.createElement('div'); body.className='body';
+  if(it.type==='dest') buildDestBody(body,it); else buildMoveBody(body,it);
+  grid.appendChild(dh); grid.appendChild(ic); grid.appendChild(tc); grid.appendChild(body);
   card.appendChild(grid);
-  const actions=document.createElement('div');actions.className='cardActions';
-  const del=document.createElement('button');del.className='actBtn';del.innerHTML='🗑';del.title='削除';del.setAttribute('aria-label','削除');
-  del.onclick=(e)=>{e.stopPropagation();removeItem(it.id);};
-  actions.appendChild(del);card.appendChild(actions);
-  card.addEventListener('dragstart',(e)=>{dragId=it.id;card.classList.add('dragging');e.dataTransfer.effectAllowed='move';try{e.dataTransfer.setData('text/plain',it.id);}catch(_){}});
-  card.addEventListener('dragend',()=>{card.classList.remove('dragging');document.querySelectorAll('.card.dragOver').forEach(c=>c.classList.remove('dragOver'));dragId=null;});
-  card.addEventListener('dragover',(e)=>{e.preventDefault();if(dragId&&dragId!==it.id){card.classList.add('dragOver');e.dataTransfer.dropEffect='move';}});
-  card.addEventListener('dragleave',()=>card.classList.remove('dragOver'));
-  card.addEventListener('drop',(e)=>{e.preventDefault();card.classList.remove('dragOver');if(dragId&&dragId!==it.id)reorderItem(dragId,it.id);});
-  let touchStartY=null;
-  dh.addEventListener('touchstart',(e)=>{touchStartY=e.touches[0].clientY;},{passive:true});
-  dh.addEventListener('touchmove',(e)=>{if(touchStartY===null)return;const dy=e.touches[0].clientY-touchStartY;if(Math.abs(dy)>40){moveItem(it.id,dy>0?1:-1);touchStartY=e.touches[0].clientY;}},{passive:true});
-  dh.addEventListener('touchend',()=>{touchStartY=null;});
+  var actions=document.createElement('div'); actions.className='cardActions';
+  var del=document.createElement('button'); del.className='actBtn'; del.innerHTML='🗑'; del.title='削除';
+  del.onclick=function(e){ e.stopPropagation(); removeItem(it.id); };
+  actions.appendChild(del); card.appendChild(actions);
+  card.addEventListener('dragstart',function(e){ dragId=it.id; card.classList.add('dragging'); e.dataTransfer.effectAllowed='move'; try{ e.dataTransfer.setData('text/plain',it.id); }catch(_){} });
+  card.addEventListener('dragend',function(){ card.classList.remove('dragging'); Array.prototype.forEach.call(document.querySelectorAll('.card.dragOver'),function(c){c.classList.remove('dragOver');}); dragId=null; });
+  card.addEventListener('dragover',function(e){ e.preventDefault(); if(dragId&&dragId!==it.id){ card.classList.add('dragOver'); e.dataTransfer.dropEffect='move'; } });
+  card.addEventListener('dragleave',function(){ card.classList.remove('dragOver'); });
+  card.addEventListener('drop',function(e){ e.preventDefault(); card.classList.remove('dragOver'); if(dragId&&dragId!==it.id) reorderItem(dragId,it.id); });
+  var startY=null;
+  dh.addEventListener('touchstart',function(e){ startY=e.touches[0].clientY; },{passive:true});
+  dh.addEventListener('touchmove',function(e){
+    if(startY===null) return;
+    var dy=e.touches[0].clientY-startY;
+    if(Math.abs(dy)>40){ moveItem(it.id, dy>0?1:-1); startY=e.touches[0].clientY; }
+  },{passive:true});
+  dh.addEventListener('touchend',function(){ startY=null; });
   return card;
 }
 
 function buildDestBody(body,it){
-  const top=document.createElement('div');top.className='destTop';
-  const lbl=document.createElement('span');lbl.className='destLbl';lbl.textContent='📍';
-  const nm=document.createElement('input');nm.className='destName';nm.value=it.name||'';nm.placeholder='場所を入力';
-  nm.addEventListener('input',()=>{it.name=nm.value;scheduleSave();});
-  const pin=document.createElement('span');pin.className='mapPin';pin.textContent='🗺';pin.title='地図で開く';
-  pin.onclick=(e)=>{e.stopPropagation();if(!it.name){toast('場所名を入力してください');return;}window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(it.name),'_blank');};
-  top.appendChild(lbl);top.appendChild(nm);top.appendChild(pin);body.appendChild(top);
-  const note=document.createElement('textarea');note.className='destNote';note.rows=1;note.placeholder='メモ（開館時間、予約情報など）';note.value=it.note||'';
+  var top=document.createElement('div'); top.className='destTop';
+  var lbl=document.createElement('span'); lbl.className='destLbl'; lbl.textContent='📍';
+  var nm=document.createElement('input'); nm.className='destName'; nm.value=it.name||''; nm.placeholder='場所を入力';
+  nm.addEventListener('input',function(){ it.name=nm.value; scheduleSave(); });
+  var pin=document.createElement('span'); pin.className='mapPin'; pin.textContent='🗺'; pin.title='地図で開く';
+  pin.onclick=function(e){ e.stopPropagation(); if(!it.name){ toast('場所名を入力してください'); return; } window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(it.name),'_blank'); };
+  top.appendChild(lbl); top.appendChild(nm); top.appendChild(pin); body.appendChild(top);
+  var note=document.createElement('textarea'); note.className='destNote'; note.rows=1; note.placeholder='メモ（開館時間、予約情報など）'; note.value=it.note||'';
   autoGrow(note);
-  note.addEventListener('input',()=>{it.note=note.value;autoGrow(note);scheduleSave();});
+  note.addEventListener('input',function(){ it.note=note.value; autoGrow(note); scheduleSave(); });
   body.appendChild(note);
 }
-function autoGrow(t){t.style.height='auto';t.style.height=(t.scrollHeight)+'px';}
+function autoGrow(t){ t.style.height='auto'; t.style.height=(t.scrollHeight)+'px'; }
 
 function buildMoveBody(body,it){
-  const head=document.createElement('div');head.className='moveHead';
-  const lbl=document.createElement('span');lbl.className='moveLbl';lbl.textContent='移動方法';
-  const sel=document.createElement('select');sel.className='moveSelect';
-  MOVES.forEach(m=>{const o=document.createElement('option');o.value=m.v;o.textContent=m.emoji+' '+m.name;if(it.move===m.v)o.selected=true;sel.appendChild(o);});
-  sel.addEventListener('change',()=>{it.move=sel.value;render();scheduleSave();});
-  head.appendChild(lbl);head.appendChild(sel);body.appendChild(head);
-  const meta=document.createElement('div');meta.className='moveMeta';
-  const g1=document.createElement('div');g1.className='metaGrp';
-  const l1=document.createElement('span');l1.className='metaLbl';l1.textContent='所要';
-  const i1=document.createElement('input');i1.className='metaInput';i1.type='number';i1.min='0';i1.step='5';i1.inputMode='numeric';i1.value=it.duration??'';i1.placeholder='0';
-  const u1=document.createElement('span');u1.className='metaUnit';u1.textContent='分';
-  i1.addEventListener('input',()=>{it.duration=i1.value===''?null:Math.max(0,parseInt(i1.value,10)||0);renderSummary();scheduleSave();});
-  g1.appendChild(l1);g1.appendChild(i1);g1.appendChild(u1);
-  const g2=document.createElement('div');g2.className='metaGrp';
-  const l2=document.createElement('span');l2.className='metaLbl';l2.textContent='費用';
-  const u2a=document.createElement('span');u2a.className='metaUnit';u2a.textContent='¥';
-  const i2=document.createElement('input');i2.className='metaInput';i2.type='number';i2.min='0';i2.step='10';i2.inputMode='numeric';i2.value=it.cost??'';i2.placeholder='0';
-  i2.addEventListener('input',()=>{it.cost=i2.value===''?null:Math.max(0,parseInt(i2.value,10)||0);renderSummary();scheduleSave();});
-  g2.appendChild(l2);g2.appendChild(u2a);g2.appendChild(i2);
-  meta.appendChild(g1);meta.appendChild(g2);body.appendChild(meta);
+  var head=document.createElement('div'); head.className='moveHead';
+  var lbl=document.createElement('span'); lbl.className='moveLbl'; lbl.textContent='移動方法';
+  var sel=document.createElement('select'); sel.className='moveSelect';
+  MOVES.forEach(function(m){ var o=document.createElement('option'); o.value=m.v; o.textContent=m.emoji+' '+m.name; if(it.move===m.v)o.selected=true; sel.appendChild(o); });
+  sel.addEventListener('change',function(){ it.move=sel.value; render(); scheduleSave(); });
+  head.appendChild(lbl); head.appendChild(sel); body.appendChild(head);
+  var meta=document.createElement('div'); meta.className='moveMeta';
+  var g1=document.createElement('div'); g1.className='metaGrp';
+  var l1=document.createElement('span'); l1.className='metaLbl'; l1.textContent='所要';
+  var i1=document.createElement('input'); i1.className='metaInput'; i1.type='number'; i1.min='0'; i1.step='5'; i1.inputMode='numeric'; i1.value=(it.duration==null?'':it.duration); i1.placeholder='0';
+  var u1=document.createElement('span'); u1.className='metaUnit'; u1.textContent='分';
+  i1.addEventListener('input',function(){ it.duration = i1.value===''?null:Math.max(0,parseInt(i1.value,10)||0); renderSummary(); scheduleSave(); });
+  g1.appendChild(l1); g1.appendChild(i1); g1.appendChild(u1);
+  var g2=document.createElement('div'); g2.className='metaGrp';
+  var l2=document.createElement('span'); l2.className='metaLbl'; l2.textContent='費用';
+  var u2=document.createElement('span'); u2.className='metaUnit'; u2.textContent='¥';
+  var i2=document.createElement('input'); i2.className='metaInput'; i2.type='number'; i2.min='0'; i2.step='10'; i2.inputMode='numeric'; i2.value=(it.cost==null?'':it.cost); i2.placeholder='0';
+  i2.addEventListener('input',function(){ it.cost = i2.value===''?null:Math.max(0,parseInt(i2.value,10)||0); renderSummary(); scheduleSave(); });
+  g2.appendChild(l2); g2.appendChild(u2); g2.appendChild(i2);
+  meta.appendChild(g1); meta.appendChild(g2); body.appendChild(meta);
 }
 
 function renderPlanList(){
-  const el=$('planList');el.innerHTML='';
+  var el=$('planList'); el.innerHTML='';
   if(!plans.length){
     el.innerHTML='<div class="hlp" style="text-align:center;padding:12px">まだプランがありません。下のボタンから作成してください。</div>';
     return;
   }
-  const sorted=plans.slice().sort((a,b)=>(b.updatedAt||'').localeCompare(a.updatedAt||''));
-  sorted.forEach(p=>{
-    const d=document.createElement('div');
+  var sorted=plans.slice().sort(function(a,b){ return (b.updatedAt||'').localeCompare(a.updatedAt||''); });
+  sorted.forEach(function(p){
+    var d=document.createElement('div');
     d.className='planItem'+(p.planId===activeId?' act':'');
     d.innerHTML='<div class="info"><div class="tt">'+esc(p.title||'無題プラン')+'</div><div class="mt">'+(p.updatedAt?'更新: '+new Date(p.updatedAt).toLocaleString('ja-JP'):'未同期')+'</div></div><button class="delBtn" title="削除">🗑</button>';
-    d.querySelector('.info').onclick=()=>loadPlan(p.planId);
-    d.querySelector('.delBtn').onclick=(e)=>{e.stopPropagation();deletePlan(p.planId,p.title);};
+    d.querySelector('.info').onclick=function(){ loadPlan(p.planId); };
+    d.querySelector('.delBtn').onclick=function(e){ e.stopPropagation(); deletePlan(p.planId,p.title); };
     el.appendChild(d);
   });
 }
 
 /* ============================================================
-   Actions
+   操作
    ============================================================ */
-function addDay(){const id=uid();const n=state.days.length+1;const base=new Date();base.setDate(base.getDate()+state.days.length);state.days.push({id,name:n+'日目',date:base.toISOString().slice(0,10),items:[]});state.activeDayId=id;render();scheduleSave();toast('新しい日を追加しました');}
-function renameDay(d){const nx=prompt('日程の名前を編集',d.name||'');if(nx===null)return;d.name=nx.trim()||d.name;render();scheduleSave();}
-function addDest(name,emoji){const day=activeDay();const last=day.items[day.items.length-1];const time=last?nextTime(last):'10:00';day.items.push({id:uid(),type:'dest',time,name:name||'',note:'',emoji:emoji||'📍'});render();scheduleSave();scrollBottom();}
-function addMove(){const day=activeDay();const last=day.items[day.items.length-1];const time=last?nextTime(last):'10:00';day.items.push({id:uid(),type:'move',time,move:'train',duration:15,cost:0});render();scheduleSave();scrollBottom();}
-function nextTime(item){let m=toMin(item.time);if(item.type==='move'&&item.duration)m+=Number(item.duration)||0;else m+=30;m=Math.min(m,23*60+59);return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');}
-function removeItem(id){const day=activeDay();const i=day.items.findIndex(x=>x.id===id);if(i<0)return;day.items.splice(i,1);render();scheduleSave();toast('削除しました');}
-function reorderItem(srcId,dstId){const day=activeDay();const arr=day.items;const from=arr.findIndex(x=>x.id===srcId);const to=arr.findIndex(x=>x.id===dstId);if(from<0||to<0||from===to)return;const [m]=arr.splice(from,1);arr.splice(to,0,m);render();scheduleSave();}
-function moveItem(id,dir){const arr=activeDay().items;const i=arr.findIndex(x=>x.id===id);if(i<0)return;const j=i+dir;if(j<0||j>=arr.length)return;[arr[i],arr[j]]=[arr[j],arr[i]];render();scheduleSave();}
-function openAddMenu(){const choice=confirm('OK=目的地を追加 / キャンセル=移動を追加');if(choice)addDest('','📍');else addMove();}
+function addDay(){
+  var id=uid(); var n=state.days.length+1;
+  var base=new Date(); base.setDate(base.getDate()+state.days.length);
+  state.days.push({id:id,name:n+'日目',date:base.toISOString().slice(0,10),items:[]});
+  state.activeDayId=id; render(); scheduleSave(); toast('新しい日を追加しました');
+}
+function renameDay(d){ var nx=prompt('日程の名前を編集', d.name||''); if(nx===null)return; d.name=nx.trim()||d.name; render(); scheduleSave(); }
+function addDest(name,emoji){
+  var day=activeDay(); var last=day.items[day.items.length-1];
+  var time=last?nextTime(last):'10:00';
+  day.items.push({id:uid(),type:'dest',time:time,name:name||'',note:'',emoji:emoji||'📍'});
+  render(); scheduleSave(); scrollBottom();
+}
+function addMove(){
+  var day=activeDay(); var last=day.items[day.items.length-1];
+  var time=last?nextTime(last):'10:00';
+  day.items.push({id:uid(),type:'move',time:time,move:'train',duration:15,cost:0});
+  render(); scheduleSave(); scrollBottom();
+}
+function nextTime(item){
+  var m=toMin(item.time);
+  if(item.type==='move'&&item.duration) m+=Number(item.duration)||0; else m+=30;
+  m=Math.min(m,23*60+59);
+  return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+}
+function removeItem(id){
+  var day=activeDay();
+  for(var i=0;i<day.items.length;i++){ if(day.items[i].id===id){ day.items.splice(i,1); break; } }
+  render(); scheduleSave(); toast('削除しました');
+}
+function reorderItem(srcId,dstId){
+  var arr=activeDay().items, from=-1, to=-1;
+  for(var i=0;i<arr.length;i++){ if(arr[i].id===srcId)from=i; if(arr[i].id===dstId)to=i; }
+  if(from<0||to<0||from===to) return;
+  var m=arr.splice(from,1)[0]; arr.splice(to,0,m);
+  render(); scheduleSave();
+}
+function moveItem(id,dir){
+  var arr=activeDay().items, i=-1;
+  for(var k=0;k<arr.length;k++){ if(arr[k].id===id){ i=k; break; } }
+  if(i<0) return;
+  var j=i+dir; if(j<0||j>=arr.length) return;
+  var t=arr[i]; arr[i]=arr[j]; arr[j]=t;
+  render(); scheduleSave();
+}
+function openAddMenu(){ if(confirm('OK=目的地を追加 / キャンセル=移動を追加')) addDest('','📍'); else addMove(); }
 
 /* Suggest */
-const sug=$('suggest');
-function renderSuggest(q){q=(q||'').trim().toLowerCase();const list=q?SUGGESTIONS.filter(s=>s.n.toLowerCase().includes(q)||s.cat.toLowerCase().includes(q)):SUGGESTIONS.slice(0,8);if(!list.length){sug.classList.remove('show');return;}sug.innerHTML=list.map(s=>`<div class="sugItem" data-n="${esc(s.n)}" data-e="${esc(s.e)}"><span class="emoji">${esc(s.e)}</span><div><div class="nm">${esc(s.n)}</div><div class="cat">${esc(s.cat)}</div></div></div>`).join('');sug.classList.add('show');sug.querySelectorAll('.sugItem').forEach(el=>{el.onclick=()=>{addDest(el.dataset.n,el.dataset.e);$('searchInput').value='';sug.classList.remove('show');};});}
+var sug=$('suggest');
+function renderSuggest(q){
+  q=(q||'').trim().toLowerCase();
+  var list = q ? SUGGESTIONS.filter(function(s){ return s.n.toLowerCase().indexOf(q)>=0 || s.cat.toLowerCase().indexOf(q)>=0; }) : SUGGESTIONS.slice(0,8);
+  if(!list.length){ sug.classList.remove('show'); return; }
+  sug.innerHTML = list.map(function(s){
+    return '<div class="sugItem" data-n="'+esc(s.n)+'" data-e="'+esc(s.e)+'"><span class="emoji">'+esc(s.e)+'</span><div><div class="nm">'+esc(s.n)+'</div><div class="cat">'+esc(s.cat)+'</div></div></div>';
+  }).join('');
+  sug.classList.add('show');
+  Array.prototype.forEach.call(sug.querySelectorAll('.sugItem'),function(el){
+    el.onclick=function(){ addDest(el.dataset.n, el.dataset.e); $('searchInput').value=''; sug.classList.remove('show'); };
+  });
+}
 
-/* Toast & Modal */
-let toastT=null;
-function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2400);}
-function scrollBottom(){setTimeout(()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}),40);}
-function openModal(id){$(id).classList.add('show');}
-function closeModal(){document.querySelectorAll('.modalWrap').forEach(m=>m.classList.remove('show'));}
-document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeModal));
+/* Toast / Modal */
+var toastT=null;
+function toast(msg){ var el=$('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){ el.classList.remove('show'); },3000); }
+function scrollBottom(){ setTimeout(function(){ window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); },40); }
+function openModal(id){ $(id).classList.add('show'); }
+function closeModal(){ Array.prototype.forEach.call(document.querySelectorAll('.modalWrap'),function(m){ m.classList.remove('show'); }); }
+Array.prototype.forEach.call(document.querySelectorAll('[data-close]'),function(el){ el.addEventListener('click',closeModal); });
 
-/* Bindings */
-$('addBtn').addEventListener('click',openAddMenu);
-$('mapBtn').addEventListener('click',()=>{const names=activeDay().items.filter(x=>x.type==='dest'&&x.name).map(x=>x.name);if(!names.length){toast('目的地がありません');return;}window.open('https://www.google.com/maps/dir/'+names.map(encodeURIComponent).join('/'),'_blank');});
-$('calBtn').addEventListener('click',()=>{const d=activeDay();const nx=prompt('日付を編集 (YYYY-MM-DD)',d.date||'');if(nx===null)return;if(/^\d{4}-\d{2}-\d{2}$/.test(nx.trim())){d.date=nx.trim();toast('日付を更新: '+d.date);scheduleSave();}else if(nx.trim()===''){d.date='';scheduleSave();}else toast('形式が正しくありません');});
-$('tripTitle').addEventListener('blur',()=>{state.title=$('tripTitle').textContent.trim()||'旅行計画';const p=plans.find(p=>p.planId===activeId);if(p)p.title=state.title;renderDayStrip();$('planCurName').textContent=state.title;scheduleSave();});
-$('tripTitle').addEventListener('keydown',(e)=>{if(e.key==='Enter'){e.preventDefault();$('tripTitle').blur();}});
-$('searchInput').addEventListener('input',(e)=>renderSuggest(e.target.value));
-$('searchInput').addEventListener('focus',(e)=>renderSuggest(e.target.value));
-$('searchInput').addEventListener('keydown',(e)=>{if(e.key==='Enter'){const v=e.target.value.trim();if(!v)return;const hit=SUGGESTIONS.find(s=>s.n===v);addDest(v,hit?hit.e:'📍');e.target.value='';sug.classList.remove('show');}});
-document.addEventListener('click',(e)=>{if(!sug.contains(e.target)&&e.target!==$('searchInput'))sug.classList.remove('show');});
-$('saveBtn').addEventListener('click',()=>doCloudSave(true));
-$('reloadBtn').addEventListener('click',async()=>{if(activeId){await loadPlan(activeId);toast('再読み込みしました');}else{await refreshPlans();}});
-$('planPickBtn').addEventListener('click',async()=>{openModal('planModal');await refreshPlans();});
-$('newPlanBtn').addEventListener('click',()=>{const title=prompt('新しい旅行プラン名','新しい旅行');if(title===null)return;createPlan(title.trim()||'新しい旅行');});
-
-window.addEventListener('online',()=>updateNet());
-window.addEventListener('offline',()=>updateNet());
-
-/* Service Worker */
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').catch(err=>console.warn('SW失敗',err));
+/* 診断 */
+function runDiag(){
+  var box=$('diagBox');
+  $('gasInput').value = GAS_URL;
+  box.textContent='診断中…';
+  var lines=[];
+  lines.push('URL: '+GAS_URL);
+  lines.push('online: '+navigator.onLine);
+  lines.push('activePlanId: '+(activeId||'(なし)'));
+  lines.push('lastError: '+(lastError||'(なし)'));
+  box.textContent=lines.join('\n');
+  fetchGet({action:'diag'}).then(function(r){
+    lines.push('--- fetch(GET) OK ---');
+    lines.push('version: '+r.version);
+    lines.push('sheet: '+r.sheetName);
+    lines.push('header: '+JSON.stringify(r.header));
+    lines.push('rows: '+r.rows);
+    box.textContent=lines.join('\n');
+  }).catch(function(e){
+    lines.push('--- fetch(GET) 失敗: '+(e.message||e)+' ---');
+    box.textContent=lines.join('\n');
+    return jsonp({action:'diag'}).then(function(r){
+      lines.push('--- JSONP OK（fallbackで動作します） ---');
+      lines.push('version: '+r.version);
+      lines.push('header: '+JSON.stringify(r.header));
+      lines.push('rows: '+r.rows);
+      box.textContent=lines.join('\n');
+    }).catch(function(e2){
+      lines.push('--- JSONP も失敗: '+(e2.message||e2)+' ---');
+      lines.push('確認: デプロイのアクセス権を「全員」にし、新バージョンでデプロイしてください。');
+      box.textContent=lines.join('\n');
+    });
   });
 }
 
 /* ============================================================
-   Init: 起動時にスプレッドシートから一覧取得→最新プランを開く
+   バインド
    ============================================================ */
-(async function init(){
+$('addBtn').addEventListener('click',openAddMenu);
+$('mapBtn').addEventListener('click',function(){
+  var names=activeDay().items.filter(function(x){ return x.type==='dest'&&x.name; }).map(function(x){ return x.name; });
+  if(!names.length){ toast('目的地がありません'); return; }
+  window.open('https://www.google.com/maps/dir/'+names.map(encodeURIComponent).join('/'),'_blank');
+});
+$('calBtn').addEventListener('click',function(){
+  var d=activeDay(); var nx=prompt('日付を編集 (YYYY-MM-DD)', d.date||'');
+  if(nx===null) return;
+  nx=nx.trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(nx)){ d.date=nx; toast('日付を更新: '+d.date); scheduleSave(); }
+  else if(nx===''){ d.date=''; scheduleSave(); }
+  else toast('形式が正しくありません');
+});
+$('tripTitle').addEventListener('blur',function(){
+  state.title=$('tripTitle').textContent.trim()||'旅行計画';
+  for(var i=0;i<plans.length;i++){ if(plans[i].planId===activeId){ plans[i].title=state.title; break; } }
+  $('planCurName').textContent=state.title; scheduleSave();
+});
+$('tripTitle').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); $('tripTitle').blur(); } });
+$('searchInput').addEventListener('input',function(e){ renderSuggest(e.target.value); });
+$('searchInput').addEventListener('focus',function(e){ renderSuggest(e.target.value); });
+$('searchInput').addEventListener('keydown',function(e){
+  if(e.key==='Enter'){
+    var v=e.target.value.trim(); if(!v) return;
+    var hit=null; for(var i=0;i<SUGGESTIONS.length;i++){ if(SUGGESTIONS[i].n===v){ hit=SUGGESTIONS[i]; break; } }
+    addDest(v, hit?hit.e:'📍'); e.target.value=''; sug.classList.remove('show');
+  }
+});
+document.addEventListener('click',function(e){ if(!sug.contains(e.target)&&e.target!==$('searchInput')) sug.classList.remove('show'); });
+$('saveBtn').addEventListener('click',function(){ doSave(true); });
+$('reloadBtn').addEventListener('click',function(){
+  if(activeId) loadPlan(activeId).then(function(){ toast('再読み込みしました'); });
+  else refreshPlans().then(function(){ if(plans.length) loadPlan(plans[0].planId); });
+});
+$('diagBtn').addEventListener('click',function(){ openModal('diagModal'); runDiag(); });
+$('gasSaveBtn').addEventListener('click',function(){
+  var u=$('gasInput').value.trim();
+  if(u.indexOf('https://script.google.com/')!==0){ toast('GAS URLの形式が正しくありません'); return; }
+  try{ localStorage.setItem(LS_GAS,u); }catch(e){}
+  GAS_URL=u; toast('URLを保存しました'); netStatus='online'; updateNet();
+  refreshPlans().then(function(){ if(plans.length) loadPlan(plans[0].planId); else createPlan('東京旅行計画'); });
+  closeModal();
+});
+$('gasResetBtn').addEventListener('click',function(){
+  try{ localStorage.removeItem(LS_GAS); }catch(e){}
+  GAS_URL=DEFAULT_GAS_URL; $('gasInput').value=GAS_URL; toast('既定URLに戻しました'); runDiag();
+});
+$('planPickBtn').addEventListener('click',function(){ openModal('planModal'); refreshPlans(); });
+$('newPlanBtn').addEventListener('click',function(){
+  var title=prompt('新しい旅行プラン名','新しい旅行'); if(title===null) return;
+  createPlan(title.trim()||'新しい旅行');
+});
+window.addEventListener('online',function(){ updateNet(); });
+window.addEventListener('offline',function(){ updateNet(); });
+
+/* Service Worker */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+}
+
+/* ============================================================
+   起動
+   ============================================================ */
+(function init(){
   updateNet();
-  if(!GAS_URL || GAS_URL==='PASTE_YOUR_GAS_WEBAPP_URL_HERE'){
-    $('timeline').innerHTML = '<div class="empty"><div class="emoji">⚠️</div><div class="t">GAS URLが未設定です</div><div class="s">index.html の GAS_URL に Apps Script の Webアプリ URL を貼り付けてください</div></div>';
-    return;
-  }
   renderLoading();
-  try{
-    const res = await gasGet({action:'list'});
-    plans = res.plans||[];
+  refreshPlans().then(function(){
     if(plans.length){
-      // 最新更新のプランを開く
-      const latest = plans.slice().sort((a,b)=>(b.updatedAt||'').localeCompare(a.updatedAt||''))[0];
-      await loadPlan(latest.planId);
-    } else {
-      // プランがなければ新規作成
-      await createPlan('東京旅行計画');
+      var latest=plans.slice().sort(function(a,b){ return (b.updatedAt||'').localeCompare(a.updatedAt||''); })[0];
+      return loadPlan(latest.planId);
     }
-  }catch(e){
-    console.error(e);
+    state = sampleData();
+    activeId = '';
+    render();
+    return doSave(false).then(function(){ toast('初期プランを作成しました'); });
+  }).catch(function(e){
+    lastError=String(e.message||e);
     netStatus='error'; updateNet();
-    $('timeline').innerHTML='<div class="empty"><div class="emoji">⚠️</div><div class="t">読み込み失敗</div><div class="s">'+esc(e.message)+'<br>右上の 🔄 で再試行してください</div></div>';
-  }
+    $('timeline').innerHTML='<div class="empty"><div class="emoji">⚠️</div><div class="t">接続できませんでした</div><div class="s">'+esc(lastError)+'<br><br>右上の 🩺 で詳細を確認してください</div></div>';
+  });
 })();
 </script>
 </body>
