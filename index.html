@@ -22,7 +22,7 @@ body{
   font-family:"Hiragino Sans","Yu Gothic UI","Noto Sans JP",system-ui,-apple-system,sans-serif;
   color:var(--ink);background:linear-gradient(180deg,#faf8f3 0%,#f2ede4 100%);min-height:100vh;
   /* ★修正1: 最下部カードがフッターに隠れないよう十分な余白 */
-  padding-bottom:calc(var(--footH) + 4000px + env(safe-area-inset-bottom));
+  padding-bottom:calc(var(--footH) + 24px + env(safe-area-inset-bottom));
 }
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
@@ -239,6 +239,15 @@ button{cursor:pointer;border:none;background:none}
   .miniBtn{font-size:10px;padding:7px 8px}
   .netInd{font-size:9px;padding:3px 6px}
 }
+/* 末尾スペーサー：フッターとカードが重ならないようにする安全余白 */
+.tailSpacer{
+  height:calc(var(--footH) + 40px + env(safe-area-inset-bottom));
+  flex-shrink:0;
+  pointer-events:none;
+}
+
+
+
 </style>
 </head>
 <body>
@@ -588,10 +597,16 @@ function renderTimeline(){
   if(!day.items.length){
     var e=document.createElement('div'); e.className='empty';
     e.innerHTML='<div class="emoji">🧳</div><div class="t">まだ予定がありません</div><div class="s">下の＋ボタンか、検索欄から追加できます</div>';
-    wrap.appendChild(e); return;
+    wrap.appendChild(e);
+  } else {
+    day.items.forEach(function(it){ wrap.appendChild(renderItem(it)); });
   }
-  day.items.forEach(function(it){ wrap.appendChild(renderItem(it)); });
+  // 末尾スペーサー：カード数が増えても常にフッターの上に余白が確保される
+  var sp=document.createElement('div');
+  sp.className='tailSpacer';
+  wrap.appendChild(sp);
 }
+
 
 /* textarea 自動リサイズ */
 function autoGrow(t){
