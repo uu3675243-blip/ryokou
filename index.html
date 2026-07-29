@@ -21,8 +21,8 @@ html,body{height:100%}
 body{
   font-family:"Hiragino Sans","Yu Gothic UI","Noto Sans JP",system-ui,-apple-system,sans-serif;
   color:var(--ink);background:linear-gradient(180deg,#faf8f3 0%,#f2ede4 100%);min-height:100vh;
-  /* ★修正1: 最下部カードがフッターに隠れないよう十分な余白 */
-  padding-bottom:calc(var(--footH) + 24px + env(safe-area-inset-bottom));
+  /* 下端はセクションごとに個別に余白を確保するので body 側は最小限 */
+  padding-bottom:0;
 }
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
@@ -246,7 +246,49 @@ button{cursor:pointer;border:none;background:none}
   pointer-events:none;
 }
 
+/* ============ 持ち物リスト ============ */
+.packWrap{max-width:640px;margin:0 auto;padding:8px 12px calc(var(--footH) + 40px + env(safe-area-inset-bottom))}
+.packHead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 4px 6px}
+.packHead .ttl{font-size:14px;font-weight:900;color:var(--ink);display:flex;align-items:center;gap:6px}
+.packHead .ttl .cnt{font-size:11px;color:var(--mut);font-weight:700}
+.packEditBtn{padding:8px 12px;border-radius:11px;background:var(--card);border:1px solid var(--line);font-size:12px;font-weight:800;color:var(--ink);box-shadow:var(--shadow);display:flex;align-items:center;gap:4px}
+.packEditBtn:active{transform:scale(.96)}
+.packList{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px;box-shadow:var(--shadow)}
+.packItem{display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:10px;transition:.12s}
+.packItem:hover{background:#fbfbf8}
+.packItem.done .nm{text-decoration:line-through;color:var(--mut)}
+.packChk{width:22px;height:22px;flex:0 0 auto;border-radius:7px;border:2px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;transition:.12s;cursor:pointer}
+.packChk.on{background:var(--ok);border-color:var(--ok)}
+.packItem .nm{flex:1;min-width:0;font-size:14px;font-weight:600;color:var(--ink);overflow-wrap:anywhere;word-break:break-word}
+.packEmpty{padding:24px 12px;text-align:center;color:var(--mut);font-size:12px}
+.packEmpty .emj{font-size:28px;margin-bottom:6px}
 
+/* ---- 一括編集モーダル ---- */
+.packEditList{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;max-height:52vh;overflow-y:auto;padding:2px}
+.packEditRow{display:flex;align-items:center;gap:8px;padding:6px 4px}
+.packEditRow .grip{color:var(--mut);font-size:12px;flex:0 0 auto;user-select:none;cursor:grab;padding:6px 2px;touch-action:none}
+.packEditRow input.pei{flex:1;min-width:0;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#fbfbf8;font-size:13px;font-weight:600;transition:.15s}
+.packEditRow input.pei:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.packEditRow .delX{flex:0 0 auto;width:32px;height:32px;border-radius:10px;color:var(--mut);font-size:15px;display:flex;align-items:center;justify-content:center;background:#f8f5ee;border:1px solid var(--line)}
+.packEditRow .delX:hover{background:rgba(239,68,68,.1);color:var(--danger);border-color:rgba(239,68,68,.3)}
+.packAddRow{display:flex;gap:8px;margin-bottom:10px}
+.packAddRow input{flex:1;min-width:0;padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:#fbfbf8;font-size:13px;font-weight:600}
+.packAddRow input:focus{outline:none;border-color:var(--accent);background:#fff}
+.packAddRow button{flex:0 0 auto;padding:11px 16px;border-radius:11px;background:var(--ink);color:#fff;font-size:13px;font-weight:800}
+.packSuggest{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.packSug{padding:6px 10px;border-radius:99px;background:#f8f5ee;border:1px solid var(--line);font-size:11px;font-weight:700;color:var(--ink2);cursor:pointer;transition:.12s}
+.packSug:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.packDoneBtn{width:100%;padding:13px;border-radius:12px;background:var(--ok);color:#fff;font-size:14px;font-weight:900;letter-spacing:.02em}
+.packDoneBtn:active{transform:scale(.98)}
+.packEditRow.dragging{opacity:.5}
+.packEditRow.dragOver{outline:2px dashed var(--accent);outline-offset:2px;border-radius:10px}
+
+@media(max-width:400px){
+  .packHead .ttl{font-size:13px}
+  .packEditBtn{font-size:11px;padding:7px 10px}
+  .packItem .nm{font-size:13px}
+  .packEditRow input.pei{font-size:12px;padding:9px 10px}
+}
 
 </style>
 </head>
@@ -274,6 +316,14 @@ button{cursor:pointer;border:none;background:none}
 </header>
 
 <main class="shell"><div class="timeline" id="timeline"></div></main>
+
+<section class="packWrap" id="packWrap">
+  <div class="packHead">
+    <div class="ttl">🎒 持ち物リスト <span class="cnt" id="packCnt"></span></div>
+    <button class="packEditBtn" id="packEditBtn">✏️ 編集</button>
+  </div>
+  <div class="packList" id="packList"></div>
+</section>
 <div class="suggest" id="suggest"></div>
 
 <div class="footer"><div class="footInner">
@@ -294,6 +344,22 @@ button{cursor:pointer;border:none;background:none}
     <div class="planList" id="planList"></div>
     <button class="newPlanBtn" id="newPlanBtn">＋ 新しい旅行プランを作成</button>
     <div class="hlp">一覧はスプレッドシートから直接取得しています。同じURLを開けばどの端末でも同じデータになります。</div>
+  </div>
+</div>
+
+<div class="modalWrap" id="packModal">
+  <div class="bd" data-close></div>
+  <div class="sheet">
+    <div class="grabber"></div>
+    <h2>🎒 持ち物リスト 一括編集</h2>
+    <div class="packAddRow">
+      <input id="packAddInput" type="text" placeholder="新しい持ち物を追加（例: 充電器）" />
+      <button id="packAddBtn">＋ 追加</button>
+    </div>
+    <div class="packSuggest" id="packSuggest"></div>
+    <div class="packEditList" id="packEditList"></div>
+    <button class="packDoneBtn" id="packDoneBtn">✓ 完了して戻る</button>
+    <div class="hlp">追加・削除・名称変更をまとめて行い、完了ボタンで反映します。</div>
   </div>
 </div>
 
@@ -538,7 +604,8 @@ function deletePlan(planId,titleName){
 function initialPlanData(title){
   var dayId=uid();
   return { title: title||'新しい旅行', activeDayId:dayId,
-    days:[{id:dayId, name:'1日目', date:new Date().toISOString().slice(0,10), items:[]}] };
+    days:[{id:dayId, name:'1日目', date:new Date().toISOString().slice(0,10), items:[]}],
+    packing:[] };
 }
 function sampleData(){
   var dayId=uid();
@@ -560,11 +627,154 @@ function renderLoading(){ $('timeline').innerHTML='<div class="loadingBox"><span
 
 function render(){
   if(!state) return;
-  renderDayStrip(); renderTimeline(); renderSummary();
+  if(!Array.isArray(state.packing)) state.packing=[];
+  renderDayStrip(); renderTimeline(); renderSummary(); renderPacking();
   $('tripTitle').textContent = state.title || '旅行計画';
   var cur=null;
   for(var i=0;i<plans.length;i++){ if(plans[i].planId===activeId){ cur=plans[i]; break; } }
   $('planCurName').textContent = cur ? cur.title : (state.title || 'プランを選ぶ');
+}
+
+/* ============================================================
+   持ち物リスト
+   ============================================================ */
+var PACK_SUGGEST = ['パスポート','財布','現金','クレジットカード','スマホ','充電器','モバイルバッテリー','イヤホン','カメラ','常備薬','マスク','下着','靴下','パジャマ','歯ブラシ','タオル','化粧品','刃物カミソリ','コンタクト','雨具','エコバッグ','ボールペン','ガイドブック'];
+
+function renderPacking(){
+  if(!state) return;
+  if(!Array.isArray(state.packing)) state.packing=[];
+  var list=$('packList'); if(!list) return;
+  list.innerHTML='';
+  var done=0;
+  state.packing.forEach(function(p){ if(p.done) done++; });
+  var cntEl=$('packCnt');
+  if(cntEl) cntEl.textContent = state.packing.length ? ('('+done+'/'+state.packing.length+')') : '';
+
+  if(!state.packing.length){
+    var e=document.createElement('div'); e.className='packEmpty';
+    e.innerHTML='<div class="emj">🎒</div><div>まだ持ち物がありません</div><div style="font-size:11px;margin-top:4px;color:var(--mut)">右上の「✏️ 編集」からまとめて追加できます</div>';
+    list.appendChild(e);
+    return;
+  }
+
+  state.packing.forEach(function(p){
+    var row=document.createElement('div');
+    row.className='packItem'+(p.done?' done':'');
+    var chk=document.createElement('button');
+    chk.className='packChk'+(p.done?' on':'');
+    chk.innerHTML=p.done?'✓':'';
+    chk.title=p.done?'未完了に戻す':'完了にする';
+    chk.onclick=function(){
+      p.done=!p.done;
+      renderPacking();
+      scheduleSave();
+    };
+    var nm=document.createElement('div');
+    nm.className='nm'; nm.textContent=p.name||'';
+    row.appendChild(chk); row.appendChild(nm);
+    list.appendChild(row);
+  });
+}
+
+function openPackEditor(){
+  renderPackEditor();
+  var m=$('packModal'); m.classList.add('show');
+  setTimeout(function(){ var i=$('packAddInput'); if(i) i.focus(); }, 100);
+}
+function closePackEditor(){
+  $('packModal').classList.remove('show');
+  renderPacking();
+  scheduleSave();
+}
+
+function renderPackEditor(){
+  var box=$('packEditList'); if(!box) return;
+  box.innerHTML='';
+  if(!Array.isArray(state.packing)) state.packing=[];
+  state.packing.forEach(function(p, idx){
+    var row=document.createElement('div');
+    row.className='packEditRow';
+    row.draggable=true;
+    row.dataset.idx=String(idx);
+
+    var grip=document.createElement('span');
+    grip.className='grip'; grip.textContent='⠇';
+
+    var inp=document.createElement('input');
+    inp.className='pei'; inp.type='text'; inp.value=p.name||'';
+    inp.placeholder='持ち物の名前';
+    inp.oninput=function(){ p.name=inp.value; };
+    inp.onkeydown=function(ev){
+      if(ev.key==='Enter'){ ev.preventDefault();
+        var next=box.querySelectorAll('input.pei')[idx+1];
+        if(next){ next.focus(); }
+        else{ addPackItemFromInput(); }
+      }
+      if(ev.key==='Backspace' && inp.value===''){
+        ev.preventDefault();
+        state.packing.splice(idx,1);
+        renderPackEditor();
+        var prev=box.querySelectorAll('input.pei')[Math.max(0,idx-1)];
+        if(prev) prev.focus();
+      }
+    };
+
+    var del=document.createElement('button');
+    del.className='delX'; del.textContent='✕'; del.title='削除';
+    del.onclick=function(){
+      state.packing.splice(idx,1);
+      renderPackEditor();
+    };
+
+    row.appendChild(grip); row.appendChild(inp); row.appendChild(del);
+
+    /* ドラッグ並び替え (PC) */
+    row.addEventListener('dragstart', function(ev){
+      row.classList.add('dragging');
+      try{ ev.dataTransfer.setData('text/plain', String(idx)); ev.dataTransfer.effectAllowed='move'; }catch(e){}
+    });
+    row.addEventListener('dragend', function(){ row.classList.remove('dragging'); });
+    row.addEventListener('dragover', function(ev){ ev.preventDefault(); row.classList.add('dragOver'); });
+    row.addEventListener('dragleave', function(){ row.classList.remove('dragOver'); });
+    row.addEventListener('drop', function(ev){
+      ev.preventDefault(); row.classList.remove('dragOver');
+      var from=parseInt(ev.dataTransfer.getData('text/plain'),10);
+      var to=idx;
+      if(isNaN(from)||from===to) return;
+      var item=state.packing.splice(from,1)[0];
+      state.packing.splice(to,0,item);
+      renderPackEditor();
+    });
+
+    box.appendChild(row);
+  });
+
+  /* サジェスト */
+  var sg=$('packSuggest'); if(sg){
+    sg.innerHTML='';
+    var have={}; state.packing.forEach(function(p){ have[p.name]=true; });
+    PACK_SUGGEST.forEach(function(nm){
+      if(have[nm]) return;
+      var b=document.createElement('button');
+      b.className='packSug'; b.textContent='＋ '+nm;
+      b.onclick=function(){
+        state.packing.push({id:uid(), name:nm, done:false});
+        renderPackEditor();
+      };
+      sg.appendChild(b);
+    });
+  }
+}
+
+function addPackItemFromInput(){
+  var i=$('packAddInput'); if(!i) return;
+  var v=String(i.value||'').trim();
+  if(!v) return;
+  if(!Array.isArray(state.packing)) state.packing=[];
+  state.packing.push({id:uid(), name:v, done:false});
+  i.value=''; i.focus();
+  renderPackEditor();
+  var box=$('packEditList'); if(box) box.scrollTop=box.scrollHeight;
 }
 
 function renderDayStrip(){
@@ -601,10 +811,7 @@ function renderTimeline(){
   } else {
     day.items.forEach(function(it){ wrap.appendChild(renderItem(it)); });
   }
-  // 末尾スペーサー：カード数が増えても常にフッターの上に余白が確保される
-  var sp=document.createElement('div');
-  sp.className='tailSpacer';
-  wrap.appendChild(sp);
+  // タイムライン末尾は小さめの余白（持ち物リストとの区切り）
 }
 
 
@@ -882,6 +1089,14 @@ function runDiag(){
 }
 
 $('addBtn').addEventListener('click',openAddMenu);
+
+/* 持ち物リスト イベント */
+$('packEditBtn').addEventListener('click', openPackEditor);
+$('packDoneBtn').addEventListener('click', closePackEditor);
+$('packAddBtn').addEventListener('click', addPackItemFromInput);
+$('packAddInput').addEventListener('keydown', function(e){
+  if(e.key==='Enter'){ e.preventDefault(); addPackItemFromInput(); }
+});
 $('mapBtn').addEventListener('click',function(){
   var names=activeDay().items.filter(function(x){ return x.type==='dest'&&x.name; }).map(function(x){ return x.name; });
   if(!names.length){ toast('目的地がありません'); return; }
